@@ -1,14 +1,5 @@
 // Исходные данные
-const createDB = [
-    `playlist`,
-
-    ` (
-    id SERIAL PRIMARY KEY, 
-    Title VARCHAR(255) NOT NULL, 
-    Artist VARCHAR(255) NOT NULL, 
-    Release INT NOT NULL, 
-    Genre VARCHAR(255) NOT NULL);`
-];
+import { createDB } from './db/music.js';
 
 // Функция для парсинга структуры таблицы из SQL-запроса
 function parseTableSchema(schemaString) {
