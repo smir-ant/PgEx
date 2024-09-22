@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .tip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .tipText {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tip" data-tooltip="Это моя кастомная подсказка!">
+        Наведи на меня
+    </div>
+
+    <h1>123</h1>
+
+    <div class="tip" data-tooltip="Ещё одна подсказка!">
+        Наведи на меня
+    </div>
+
+    <span>123123123sdfdsf11231232321 
+        <div class="tip" data-tooltip="Подсказка внутри текста!">
+            Наведи на меня
+        </div>
+    </span>
+
+    <script>
+        // Функция для показа подсказки
+        function showTooltip(element, message) {
+            let tipText = element.nextElementSibling;
+
+            // Если элемент tipText не существует, создаем его
+            if (!tipText || !tipText.classList.contains('tipText')) {
+                tipText = document.createElement('div');
+                tipText.classList.add('tipText');
+                element.insertAdjacentElement('afterend', tipText); // Вставляем после элемента
+            }
+
+            // Устанавливаем текст подсказки и показываем её
+            tipText.textContent = message;
+            tipText.style.opacity = '1';
+            tipText.style.visibility = 'visible';
+
+            const bounding = element.getBoundingClientRect();
+            let left = bounding.left + (bounding.width / 2) - (tipText.offsetWidth / 2);
+            let top = bounding.top - tipText.offsetHeight - 10;
+
+            // Проверка на выход за пределы экрана (по горизонтали)
+            if (left < 0) {
+                left = 10; // Минимальный отступ слева
+            } else if (left + tipText.offsetWidth > window.innerWidth) {
+                left = window.innerWidth - tipText.offsetWidth - 10; // Максимальный отступ справа
+            }
+
+            // Проверка на выход за пределы экрана (по вертикали)
+            if (top < 0) {
+                top = bounding.bottom + 10; // Если подсказка выходит сверху, показываем её снизу
+            }
+
+            // Устанавливаем позицию подсказки
+            tipText.style.left = `${left}px`;
+            tipText.style.top = `${top}px`;
+        }
+
+        // Функция для скрытия подсказки
+        function hideTooltip(element) {
+            let tipText = element.nextElementSibling;
+            if (tipText && tipText.classList.contains('tipText')) {
+                tipText.style.opacity = '0';
+                tipText.style.visibility = 'hidden';
+            }
+        }
+
+        // Навешиваем события на все элементы с классом .tip
+        document.querySelectorAll('.tip').forEach(tip => {
+            tip.addEventListener('mouseenter', function() {
+                const message = this.getAttribute('data-tooltip');
+                showTooltip(this, message);
+            });
+
+            tip.addEventListener('mouseleave', function() {
+                hideTooltip(this);
+            });
+        });
+    </script>
+</body>
+</html>

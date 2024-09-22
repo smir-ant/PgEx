@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        HTML CSS Result Skip Results Iframe
+
+        /* accordeon ouverture/fermeture au click sans js ni input ou simple ouverture avec input :) */
+        #tabindexe,
+        #inpute {
+            display: inline-block;
+            width: 45%;
+            position: relative;
+            margin: 1em;
+            vertical-align: top;
+        }
+
+        section>h1 {
+            min-height: 2.5em;
+            background: white;
+        }
+
+        article {
+            text-align: left;
+        }
+
+        h1,
+        label {
+            margin: 0;
+            border: solid 1px;
+            background: #abc;
+            padding: 0.25em;
+            font-size: 1.5em;
+            display: block;
+        }
+
+        h1+div,
+        input+div {
+            max-height: 0px;
+            overflow: hidden;
+            transition: max-height 1s;
+            background: #def;
+            box-shadow: inset 0 0 0 1px;
+            padding: 0 5px;
+        }
+
+        h1:focus {
+            color: red;
+        }
+
+        h1:focus+div,
+        input:checked+div {
+            max-height: 600px;
+            transition: max-height 1s
+        }
+
+        h1:focus+div:before {
+            content: '';
+            display: block;
+            height: 2.5em;
+            margin-top: -2.6em;
+            width: 100%;
+            position: absolute;
+        }
+
+        input[type="radio"] {
+            position: absolute;
+            left: -9999em;
+        }
+
+        #inpute article {
+            position: relative;
+        }
+
+        label[for="close"] {
+            display: none;
+            position: absolute;
+        }
+
+        input:checked~label[for="close"] {
+            right: 0;
+            top: 0;
+            display: block;
+            background: #333;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        html {
+            background: #777;
+            overflow-y: scroll;
+            text-align: center;
+            padding-top: 3em;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    HTML CSS
+
+    Result
+    Skip Results Iframe
+
+    <section id="tabindexe">
+        <h1>accordeon CSS3 + tabindex et :before</h1>
+        <article>
+            <h1 tabindex="0">Blabla descriptif.</h1>
+            <div>
+                <ol>
+                    <li>Tabindex, pour activer le focus au clique ou tab et rendre possible l'usage de
+                        <code>:focus</code>
+                    </li>
+                    <li>before, pour generer un element translucide au dessus du titre qui a le focus,
+                        de fait un second click sur le titre fait perdre le focus.</li>
+                    <li>les transition ont besoin de 2 valeurs definies, auto n'en est pas une. 100% , si basé sur une
+                        valeur definie du parent , elle est okay</li>
+                </ol>
+            </div>
+        </article>
+        <article>
+            <h1 tabindex="0">titre1</h1>
+            <div>
+                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                    Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
+                    amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit
+                    amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae,
+                    ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci,
+                    sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent
+                    dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.
+                    Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+            </div>
+        </article>
+        
+    </section>
+
+    <section id="inpute">
+        <h1>Accordeon CSS3 avec input et selecteur d'adjacence<input type="radio" name="abcd" id="close" /></h1>
+        <article>
+            <label for="a">Simple label et descriptif basique</label> <input type="radio" name="abcd" id="a" />
+            <div>
+                <ol>
+                    <li>label et input de type radio pour faire usage de :checked</li>
+                    <li>Selecteur d'adjacence pour afficher le div adjacent</li>
+                    <li>transitions: idem definir deux valeurs</li>
+                    <li>on ne peut pas tout refermer sans js</li>
+                    <li>Un label supplementaire par ouverture et un un seul input pour refermer sera necessaire</li>
+                </ol>
+            </div>
+            <label for="close">-</label>
+        </article>
+        <article>
+            <label for="b">pas de titre mais simple label</label> <input type="radio" name="abcd" id="b" />
+            <div>
+                <p>Fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+                    ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat
+                    eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum
+                    sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros
+                    ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis.
+                    Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna
+                    eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis
+                    luctus, metus</p>
+            </div>
+            <label for="close">-</label>
+        </article>
+        
+    </section>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+@media (prefers-color-scheme: light) {
+    :root {
+        --color-back: #f1f1f1;
+        --color-back_second: #fff;
+        --color-trEven: #EBEAE3;
+        --color-solved: #7cac6c;
+        --color-4readingFront: #333;
+        --color-4readingBack: #eee;
+        --color-disabledNext: #C9C9C9;
+        --bordeRadius: 10px;
+        --invert: invert(0);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-back: #181A1B;
+        --color-back_second: #25282a;
+        --color-trEven: #1d1d1f;
+        --color-solved: #4f7142;
+        --color-4readingFront: #eee;
+        --color-4readingBack: #333;
+        --color-disabledNext: #040e0e;
+        --bordeRadius: 10px;
+        --invert: invert(1);
+    }
+}
+
+:root {
+    /* полупрозрачный цвет для текста */
+    --color-25proc: color-mix(in srgb, var(--color-4readingFront) 25%, transparent);
+    --color-50proc: color-mix(in srgb, var(--color-4readingFront) 50%, transparent);
+}

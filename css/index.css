@@ -1,0 +1,70 @@
+article {
+    margin-bottom: 1rem;  
+    /* для before (скрытой штуки для снятия фокуса если по ней кликнешь)*/
+    position: relative;  
+}
+
+
+/* везде сделано уточнение h1[tabindex], чтобы не красить h1 с уроков */
+h1[tabindex] {
+    font-family: monospace;
+    min-height: 2.5rem;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0;
+    background-color: var(--color-back);
+    border-radius: 10px;
+    font-size: 2rem;
+    display: block;
+    
+
+    /* кликнул - синим подсветился текст */
+    &:focus {
+        color: #3a79d7;
+
+    }
+
+    /* div эт содержимое "раскрываемое" (идёт после h1, что и будет как h1+div) */
+    & + div {
+        /* если дашь div'у по высоте padding, то его будет видно, лол */
+        padding: 0px 20px;
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 1s linear;
+        background-color: var(--color-back);
+        border-radius: 10px;
+    }
+
+    /* содержимое появляется при нажатии (фокусировке (за счёт tabindex)) */
+    /* да, можно было впихнуть в селектор &:focus, но минус читаемость имхо*/
+    &:focus + div{
+        margin-top: -2rem;            
+        padding-top: 2rem;
+        max-height: 600px;
+        transition: max-height 1.5s ease;
+    
+        /* как раз это и есть та штука, что даёт эффект мол кликаешь туда же, а фокус теряется */
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            height: 3.5em;
+            width: 100%;
+            position: absolute;
+            top: 0rem;
+            left: 0rem;
+            cursor: pointer;
+            
+            /* если интересно, то можешь сделать видимым и поиграться с м̶о̶и̶м̶ ̶ч̶л̶е̶н̶о̶м̶ настройками */
+            /* background-color: red; */
+        }
+    }
+}
+
+
+
+/* ==================== Иконки ==================== */
+.icon {
+    width: 2rem; 
+    vertical-align: middle;
+}

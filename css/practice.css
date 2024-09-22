@@ -1,0 +1,172 @@
+@import 'variables.css';
+
+/* ==================== PRACTICE SECTION ==================== */
+#sect_practice {
+    display: grid;
+      grid-template-areas:
+        "table task"
+        "code task";
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 10px;
+      height: fit-content;
+      margin-top: 25px;
+}
+
+/* ======= АДАПТИВ (мобилки) ======= */
+@media (max-width: 768px) {
+    #sect_practice {
+        grid-template-areas: 
+            "table"
+            "code"
+            "task";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+}
+
+
+/* ----------- задачи ----------- */
+#group_task {
+    grid-area: task;
+
+    border-radius: var(--bordeRadius);
+    background-color: var(--color-trEven);
+    padding: 10px 20px;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & ol {
+        padding-left: 20px;
+    }
+
+    & li {
+        margin: 20px 0;
+    }
+    
+}
+
+/* code у меня здесь это ключевые слова в задачах и тексте урока выделяются */
+code {
+    font-size: 1rem;
+}
+
+/* выделяется ключевые слова только если задача текущая (не решена и не отключена) */
+li:not(.color-solved):not(.disabled) code {
+    padding: 0 3px 2px;
+    border-bottom: 1px solid var(--color-4readingFront);
+}
+
+/* задания неоткрытые */
+li.disabled {
+    opacity: 0.2;
+}
+/* кнопка перехода отключенная */
+a.disabled {
+    pointer-events: none;
+}
+/* задания решенные */
+.solved {
+    color: var(--color-solved);
+}
+
+
+/* ----------- данные ----------- */
+#group_table {
+    grid-area: table;
+    overflow-x: scroll;
+}
+
+#containerTable {
+    border: 1px solid var(--color-trEven);;
+    height: 310px;
+    overflow-y: scroll;
+    border-radius: var(--bordeRadius);
+}
+
+#dataTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+/* липкий заголовок таблицы с данными + цветовое отделение  */
+thead tr {
+    top: 0;
+    position: sticky;
+
+    filter: drop-shadow(0px 0px 2px var(--color-4readingFront));
+}
+tr:nth-child(even), th {
+    background-color: var(--color-trEven);
+}
+td, th {
+    padding: 4.5px 20px;
+    text-align: left;
+}
+
+
+
+#status {
+    font-size: 0.8rem;
+    margin: 0.5rem 0 1.5rem;
+    font-family: monospace;
+}
+
+
+/* ----------- код ----------- */
+#group_code {
+    grid-area: code;
+}
+
+.code {
+    font-family: monospace;
+    font-size: 1rem;
+
+    padding: 15px;
+    min-height: 120px;
+    height: fit-content;
+
+    overflow: auto;
+    white-space: pre-wrap; /* Перенос строки */
+    word-wrap: break-word; /* Перенос слов */
+
+}
+
+.code#colored {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    height: fit-content;
+
+
+    /* запрет на выделение. а то выделяя копируются с тегами, ибо #colored выше находится и копируется из него */
+    -webkit-user-select: none; /* Для Safari */
+    -moz-user-select: none; /* Для Firefox */
+    -ms-user-select: none; /* Для Internet Explorer/Edge */
+    user-select: none; /* Стандартное свойство */
+}
+
+.code#sqlInput {
+    background-color: var(--color-back);
+    color: var(--color-4readingFront);
+
+    border-radius: var(--bordeRadius);
+    outline: none;
+}
+
+
+/* SQL keywords color */
+.highlight {
+    color: #3a79d7;
+
+}
+
+/* comment color + recolor keywords */
+.comment .highlight,
+.comment {
+    color: #6a737d;
+}

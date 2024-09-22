@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PgEx 01</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/practice.css">
+    <link rel="stylesheet" href="css/theory.css">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body>
+    <a id="github" href="https://github.com/smir-ant/PgEx"><img src="assets/github.svg" alt=""></a>
+    
+
+    <main>
+        <nav>
+            <a id="proj_name" href="index.html">PgEx</a>
+        </nav>
+
+        <section id="sect_theory">
+            <h1>Урок 1. Выборка: колонки.</h1>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque quisquam labore esse doloribus, a
+                sed voluptatibus obcaecati voluptatem aperiam laborum excepturi voluptas maiores perferendis culpa
+                quibusdam repellat cum ut. Dolorum aperiam aliquam inventore placeat repudiandae culpa delectus natus
+                sapiente ratione cumque at dignissimos rerum, porro dolores adipisci suscipit vero maxime.</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque quisquam labore esse doloribus, a
+                sed voluptatibus obcaecati voluptatem aperiam laborum excepturi voluptas maiores perferendis culpa
+                quibusdam repellat cum ut. Dolorum aperiam aliquam inventore placeat repudiandae culpa delectus natus
+                sapiente ratione cumque at dignissimos rerum, porro dolores adipisci suscipit vero maxime.</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque quisquam labore esse doloribus, a
+                sed voluptatibus obcaecati voluptatem aperiam laborum excepturi voluptas maiores perferendis culpa
+                quibusdam repellat cum ut. Dolorum aperiam aliquam inventore placeat repudiandae culpa delectus natus
+                sapiente ratione cumque at dignissimos rerum, porro dolores adipisci suscipit vero maxime.</p>
+
+                <figure class="schema">
+                    <img src="assets/lesson01/schema_playlist.png">
+                    <figcaption><span>Модель базы данных</span></figcaption>
+                </figure>
+        </section>
+
+        <hr>
+
+        <section id="sect_practice">
+            <section id="group_table">    
+                <div id="containerTable">
+                    <table id="dataTable">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div id="status"></div>        
+            </section>
+
+            <section id="group_task">
+                <div class="container">
+                    <h3>Урок 1. &nbsp; Задания:</h3>
+                    <ol>
+                        <li>Find the <code>title</code> of each track</li>
+                        <li class="disabled">Find the <code>artist</code> of each track</li>
+                        <li class="disabled">Find the <code>title</code> and <code>artist</code> of each track</li>
+                        <li class="disabled">Find the <code>title</code> and year of <code>release</code> of each track</li>
+                        <li class="disabled">Find <code>all</code> the information about each track</li>
+                    </ol>
+                </div>
+                <a class="btn disabled" href="lesson02.html" id="finishBtn">Выполни задания выше</a>
+            </section>
+
+            <section id="group_code"> 
+                    <div id="colored" class="code"></div>
+                    <div id="sqlInput" class="code" contenteditable="true" spellcheck="false"></div>
+            </section>  
+        </section>
+    </main>
+
+    <script src="scripts/higlightSQL.js"></script>
+    <script src="scripts/isRightAns.js"></script>
+    <script src="scripts/fillTableHtml.js"></script>
+    <script src="scripts/status.js"></script>
+    <script src="scripts/nextTask.js"></script>
+    <script type="module" src="scripts/db/music.js">//createDB</script> 
+
+    <script type="module"> // вынужден оставлять js в html, иначе cors получается из-за wasm, как я понял  :(
+        const tablename = createDB[0];
+        const answers = [
+            `SELECT title FROM ${tablename};`,
+            `SELECT artist FROM ${tablename};`,
+            `SELECT title, artist FROM ${tablename};`,
+            `SELECT title, release FROM ${tablename};`,
+            `SELECT * FROM ${tablename};`,
+        ]
+
+        const dataTable = document.getElementById('dataTable');
+        const sqlInput = document.getElementById('sqlInput'); 
+        sqlInput.innerHTML = `SELECT * FROM ${tablename};`;
+        highlightEl();  // стартовый select * from разукрасить
+        let db = null;
+
+        import { PGlite } from "https://cdn.jsdelivr.net/npm/@electric-sql/pglite/dist/index.js";
+
+        async function initializeDB() {            
+            setStatus("Загрузка...");
+            
+            db = new PGlite();
+            // т.к. тут всё кешируется, то сперва удаляем бд если была
+            // await db.query('DROP TABLE IF EXISTS ${tablename};');
+            
+            // создаём бд
+            await db.query(`CREATE TABLE ${tablename}` + createDB[1]);
+                
+            // наполняем бд
+            await db.query(`INSERT INTO ${tablename}` + createDB[2]);
+
+            // из бд закидываем это в html
+            const result = await db.query(`SELECT * FROM ${tablename};`);
+            fillTableHtml(result.rows, result.fields);  
+
+            setStatus(`БД готова к работе. Всего записей: ${result.rows.length}`);
+
+            //fetchTableData();
+        }
+
+        /*
+        async function fetchTableData() {
+            // 🤔❓
+            setStatus("Извлечение данных...");
+            const result = await db.query(`SELECT * FROM ${tablename};`);
+            fillTableHtml(result.rows, result.fields);
+            setStatus(`БД готова к работе. Всего записей: ${result.rows.length}`);
+            
+        }
+        */
+
+
+        let error_translate = {
+            "syntax error at or near ": "синтаксическая ошибка возле ",
+            "argument of WHERE must be type boolean": "...",  // WHERE подаётся значение не bool
+            "operator does not exist: integer == inte": "...",  // два равно в where
+            "cannot insert multiple commands into a p": "...",  // несколько команд сразу
+        }
+
+        
+        // =============== Выполнение SQL команды ===============
+        // к сожалению не могу перенести в отдельный скрипт, т.к. используется пеменная db с wasm под капотом
+        async function executeSQL() {
+            const sql = sqlInput.innerHTML.replaceAll('<div>', ' ')  // каждая строка тут это div
+                .replaceAll('</div>', '')
+                .replaceAll('<br>', '')
+                .replaceAll('&lt;', '<')
+                .replaceAll('&gt;', '>')
+                .replace(/(--.*$)/gm, '') // Удаляет однострочные комментарии sql
+                .replace(/\/\*[\s\S]*?\*\//gm, '') // Удаляет многострочные комментарии sql
+                // p.s. Когда мы используем регулярное выражение с флагом g (глобальный), метод replace заменяет все вхождения в строке, а не только первое, поэтому можно не replaceAll
+                .trim();
+            if (!sql) {
+                setStatus("Введи SQL запрос.");
+                return;
+            }
+            setStatus(`Выполняем запрос: ${sql}`);
+            try {
+                const isSelectQuery = sql.toLowerCase().startsWith("select");
+
+                if (isSelectQuery) {
+                    const result = await db.query(sql);
+                    
+                    fillTableHtml(result.rows, result.fields);
+                    setStatus(`Запрос выполнен. Вернуто ${result.rows.length} строк.`);
+                    
+                    // выполнили запрос, но проверим верный ли запрос по заданию
+                    const taskAnswer = await db.query(answers[currentTask]);
+                    if ( isRightAnswer(result['rows'], taskAnswer['rows']) ) {
+                        nextTask();  // на след. задачу
+                    };
+                } else {  // ----- DELETE, UPDATE..?❗️ -----
+                    //fetchTableData();
+                    // ❗️
+                    /* 
+                    INSERT INTO ${tablename} (id, title, director, year, length_minutes) VALUES (16, 'Toy Story 4', 'El Directore', 2015, 90); 
+                    */
+                    const result = await db.exec(`
+                        BEGIN;
+                        ${sql}
+                        -- Делаем SELECT для просмотра изменений
+                        SELECT * FROM ${tablename};
+
+                        -- Откатываем изменения
+                        ROLLBACK;
+                    `);
+                    // console.log("ПОЛУЧИЛИ", result);
+                    // console.log("ПОЛУЧИЛИ2", result[2]);
+                    
+                    fillTableHtml(result[2].rows, result[2].fields);
+                    setStatus(`Запрос выполнен. Вернуто ${result[2].rows.length} строк.`)
+                }
+            } catch (error) {
+                // Используем Object.keys для итерации по ключам объекта
+                //Object.keys(error_translate).forEach(phrase => {
+                //    error.message = error.message.replace(phrase, error_translate[phrase]);
+                //});
+                //error_translate.forEach((phrase) => {error.message = error.message.replace(phrase, error_translate[phrase])})
+                setStatus(`Ошибка при выполнении запроса: ${error.message}`);
+            }
+        }
+
+        sqlInput.oninput = executeSQL;  // при любом вводе выполнять команду
+        window.onload = () => initializeDB();  // когда страница прогрузится начать загрузку базы данных
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PgEx</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- 
+    Этот вариант аккордеона основан на том, что мы используем свойство tabindex и CSS-селектор :focus для управления открытием и закрытием контента.
+
+    Как это работает:
+
+    Шаг 1: Заголовок с tabindex
+    <h1 tabindex="0">Урок №1.</h1>
+    Атрибут tabindex="0" делает заголовок доступным для фокуса, то есть на него можно кликнуть или выбрать с помощью клавиши Tab.
+    Когда элемент с tabindex получает фокус (на него кликнули или выбрали с клавиатуры), к нему применяется CSS-селектор :focus.
+    
+    Шаг 2: Открытие контента с помощью :focus
+    h1:focus+div {
+        max-height: 600px;
+        transition: max-height 1s;
+    }
+    Селектор h1:focus+div означает: "Применить стиль к div, который находится непосредственно после заголовка h1, когда этот заголовок находится в фокусе".
+    Изначально, div с текстом внутри скрыт из-за max-height: 0px и overflow: hidden.
+    Когда заголовок получает фокус (:focus), высота блока увеличивается до 600px, а сам блок плавно открывается благодаря transition.
+    
+    Шаг 3: Псевдоэлемент :before
+    h1:focus+div:before {
+        content: '';
+        display: block;
+        height: 2.5em;
+        margin-top: -2.6em;
+        width: 100%;
+        position: absolute;
+    }
+    Здесь используется псевдоэлемент :before, который создаёт невидимый блок перед содержимым при открытии.
+    Этот невидимый блок закрывает заголовок, когда он находится в фокусе, что "обманывает" браузер: при клике на заголовок аккордеон закрывается, потому что фокус теряется.
+    
+    Шаг 4: Анимация
+    transition: max-height 1s;
+    Свойство transition добавляет плавное раскрытие и закрытие содержимого при изменении значения свойства max-height.
+    -->
+
+    <a id="github" href="https://github.com/smir-ant/PgEx"><img src="assets/github.svg" alt=""></a>
+
+    <main>
+            <!-- <article>
+                <h1 tabindex="0"><img class="icon" src="assets/icon_gear.svg"> Настройки</h1>
+                <div>
+                    <div class="setting_param">
+                        <div style="background-image: url(assets/icon_russia.svg);" class="icon_settings"></div>
+                        <p>Язык</p>
+                    </div>
+                    <div onclick="resetProgress()" class="setting_param">
+                        <div style="background-image: url(assets/icon_reset.svg);" class="icon_settings"></div>
+                        <p>Сброс прогресса</p>
+                    </div>
+
+                </div>
+            </article> -->
+            <article>
+                <h1 tabindex="0"><img class="icon" src="assets/index/icon_glos.svg"> Глоссарий</h1>
+                <div>
+                    <p>Тут будут все термины и где про них смотреть</p>
+                </div>
+            </article>
+            <article>
+                <h1 tabindex="0"><img class="icon" src="assets/index/icon_muscule.svg"> Тренажер</h1>
+                <div>
+                    <p>???</p>
+                    <a class="btn" href="trainer.html">Пройти</a>
+                </div>
+            </article>
+            <article>
+                <h1 tabindex="0">Урок № 0. &nbsp; SQL, СУБД, Postgre.</h1>
+                <div>
+                    <p>Отправная точка для погружения. Основные понятия понятными словами.</p>
+                    <a class="btn" href="lesson00.html">Пройти</a>
+                </div>
+            </article>
+            <article>
+                <h1 tabindex="0">Урок № 1. &nbsp; Выборка: колонки.</h1>
+                <div>
+                    <p>В этом уроке ты познакомишься с <code>SELECT</code> и научишься делать самые примитивные выборки - выбирать колонки.</p>
+                    <a class="btn" href="lesson01.html">Пройти</a>
+                </div>
+            </article>
+            
+    </main>
+
+    <script src="scripts/lang_reset.js"> //для переключения языка и сброса прогресса || само работает </script>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+@import 'variables.css';
+
+body {
+    /* коррекция отступов в раскрываемых списках */
+    & details p {
+        margin-block: 1rem;
+    }
+    & details ul {
+        margin: 1rem 0 2rem;
+    }
+
+    /* отступ вверх в уроках от кнопки перехода дальше */
+    .btn {
+        margin-top: 3rem;
+    }
+}
+
+#sect_theory {
+    text-align: justify;
+}
+
+/* когда хочешь символ сделать картинкой */
+.symbol_img {
+    font-size: 7vw;
+}
+
+/* ----------- Картинки с подписью ----------- */
+/* схема бд */
+.schema {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & img {
+        height: 20rem;
+    }
+}
+
+/* настройка общего случая */
+figure {
+    margin: 1rem auto;
+    width: fit-content;
+    display: block;
+    border: 1px solid var(--color-25proc);
+    border-radius: var(--bordeRadius);
+
+    /* внутри просто картинка */
+    & img {
+        height: 12vw;
+        width: fit-content;
+        margin: 0.75rem;
+    }
+
+    & figcaption {
+
+        width: 100%;
+        border-top: solid 1px var(--color-25proc);
+        text-align: center;
+
+        & span {
+            color: var(--color-50proc);
+            display: block;
+            padding: 0.75rem 1.25rem;
+        }
+    }
+
+    /* внутри картинка с подписью */
+    & figure {
+        width: min-content;
+        border: none;
+
+        & img {
+            margin: 1rem 1rem 0;
+        }
+
+        & figcaption {
+            border: none;
+
+
+            & span {
+                padding: 0.25rem 0.5rem 0.5rem;
+            }
+        }
+    }
+}
+
+
+/* ----------- TOGGLE (details) ----------- */
+details {
+    transition: max-height 1.5s ease;
+
+    & p {
+        margin: 0;
+    }
+
+    /* увеличить расстояние от маркера до текста */
+    & > summary > span {
+        margin-left: 0.25rem;
+    }
+
+    & > summary {
+        border-radius: var(--bordeRadius);
+        padding: 0.5rem 1rem;
+        background-color: var(--color-4readingFront);
+        color: var(--color-4readingBack);
+        border: 1px #ccc solid;
+        cursor: pointer;
+    }
+
+    &[open] > summary {
+        color: var(--color-4readingBack); 
+        background-color: var(--color-4readingFront);
+    }
+
+    & > div {
+        border-radius: var(--bordeRadius);
+        border: 1px var(--color-4readingFront) solid;
+
+        /* чтобы открывающийся блок был как бы продолжением summary, из-под него выходил */
+        margin-top: -2.5rem;
+        padding: 2.5rem 1rem 0;
+        /* открываемый div сдвинут вверх маржином => он накрывает summary(он остаётся кликабельным, но только по тексту, не по всему блоку). поэтому отключаем диву взаимодействие с мышкой  */
+        pointer-events: none;
+
+        & .tip {
+            /* но разрешаем подсказкам реагировать с мышкой */
+            pointer-events: all;
+            /* p.s. получаем что div не мешает кликать на summary, но подсказки внутри div живы-здоровы */
+        }
+    }
+
+    /* небольшой вертикальный отступ для элементов списка */
+    & li {
+        margin: 0.5rem;
+    }
+}
+
+/* ----------- подсказки (?) ----------- */
+.tip {
+    font-size: 0.85rem;
+    position: relative;
+    cursor: default;
+    border: 1px var(--color-4readingFront) solid;
+    opacity: 0.5;
+    margin-left: 0.25rem;
+    /* делаем круг */
+    border-radius: 50%;
+    width: 1.25rem;
+    height: 1.25rem;
+    /* с вопросиком по центру */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    /* подсказка идёт сразу после вопросика */
+    & + .tipText {
+        position: absolute;
+        z-index: 10;
+        background-color: var(--color-4readingFront);
+        color: var(--color-4readingBack);
+        padding: 0.25rem 0.75rem;
+        border-radius: calc(var(--bordeRadius) / 1.5 );
+        word-wrap: break-word; /* Перенос слов, если tip слишком длинный */
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+
+
+        /* тень */
+        box-shadow: 0px 0px 5px 5px rgba(34, 60, 80, 0.2);
+    }
+}
