@@ -3,126 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DB Schema</title>
+    <title>Document</title>
     <style>
-        .schema {
-            font-family: Arial, sans-serif;
+        table {
             border-collapse: collapse;
-            margin: 20px;
-            width: 50%;
+
+            & tr:first-child td {
+                padding-top: 20px; /* Добавляем отступ сверху для первого <tr> */
+            }
+            & tr:last-child td {
+                padding-bottom: 20px; /* Добавляем отступ снизу для последнего <tr> */
+            }
         }
-        .schema th, .schema td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        .schema th {
-            background-color: #f2f2f2;
-        }
-        .key {
-            font-weight: bold;
-            color: red;
+        
+        td {
+            border: 1px black solid;
         }
     </style>
 </head>
 <body>
-    <div id="db-container"></div>
-
-    <script type="module" src="../scripts/makeSchema.js"></script>
-
-    <!-- <script>
-        // Исходные данные
-        const createDB = [
-            `playlist`,
-
-            ` (
-            id SERIAL PRIMARY KEY, 
-            Title VARCHAR(255) NOT NULL, 
-            Artist VARCHAR(255) NOT NULL, 
-            Release INT NOT NULL, 
-            Genre VARCHAR(255) NOT NULL);`
-        ];
-
-        // Функция для парсинга структуры таблицы из SQL-запроса
-        function parseTableSchema(schemaString) {
-            // Убираем лишние символы и разбиваем строку по запятым
-            const fields = schemaString
-                .replace(/\n/g, '') // Убираем переносы строк
-                .replace(/[();]/g, '') // Убираем скобки и точки с запятой
-                .split(','); // Разделяем по запятым
-
-            // Массив для хранения полей таблицы
-            const parsedFields = [];
-
-            fields.forEach(field => {
-                // Разделяем строку на части: имя поля и его тип
-                const parts = field.trim().split(/\s+/); // Разделяем по пробелам
-                const fieldName = parts[0].toLowerCase(); // Приводим название колонки к нижнему регистру
-
-                // Объединяем тип данных (всё что после названия колонки)
-                let fieldType = parts.slice(1).join(' ');
-
-                // Убираем "NOT NULL" и другие ограничения, оставляем только тип
-                fieldType = fieldType.replace('NOT NULL', '').trim();
-
-                // Если поле является PRIMARY KEY, заменяем тип SERIAL на INT и добавляем ключ
-                if (fieldType.includes('SERIAL PRIMARY KEY')) {
-                    fieldType = '🔑 INT';
-                }
-
-                // Исправляем строку для поля с типом VARCHAR(255), чтобы сохранить скобки
-                fieldType = fieldType.replace('VARCHAR255', 'VARCHAR(255)');
-
-                parsedFields.push({
-                    name: fieldName,
-                    type: fieldType
-                });
-            });
-
-            return parsedFields;
-        }
-
-        // Парсим структуру таблицы
-        const tableName = createDB[0]; // Имя таблицы
-        const tableSchema = parseTableSchema(createDB[1]); // Структура таблицы
-
-        // Создаем div элемент с классом 'schema'
-        const schemaDiv = document.createElement('div');
-        schemaDiv.classList.add('schema');
-
-        // Создаем таблицу
-        const table = document.createElement('table');
-        table.classList.add('schema');
-
-        // Создаем заголовок таблицы
-        const headerRow = document.createElement('tr');
-        const th = document.createElement('th');
-        th.colSpan = 2; // Объединяем две колонки
-        th.innerText = tableName;
-        headerRow.appendChild(th);
-        table.appendChild(headerRow);
-
-        // Создаем строки таблицы из schemaData
-        tableSchema.forEach(field => {
-            const row = document.createElement('tr');
-
-            const fieldCell = document.createElement('td');
-            fieldCell.innerText = field.name;
-
-            const typeCell = document.createElement('td');
-            typeCell.innerText = field.type;
-
-            row.appendChild(fieldCell);
-            row.appendChild(typeCell);
-
-            table.appendChild(row);
-        });
-
-        // Добавляем таблицу в div
-        schemaDiv.appendChild(table);
-
-        // Добавляем созданный div в контейнер на странице
-        document.getElementById('db-container').appendChild(schemaDiv);
-    </script> -->
+    <div>
+        <table>
+            <tr>
+                <td>123</td>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+                <td>123</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

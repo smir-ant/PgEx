@@ -26,7 +26,7 @@
 }
 
 /* ----------- схема бд ----------- */
-#schema_block {
+.schema_block {
     font-family: monospace;
 
     display: flex;
@@ -42,8 +42,12 @@
         font-family: monospace;
     }
 
+    /* внутри таблицы */
     & .schema_table {
-        padding-inline: 0.5rem;
+        /* из-за желания немножечко расширить таблицу по высоте я вынужден это городить. ибо padding на table не работает */
+        & tr:first-child td {
+            padding-top: 0.7rem;
+        }
     }
 }
 
