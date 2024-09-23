@@ -42,7 +42,7 @@
         font-family: monospace;
     }
 
-    & #schema_table {
+    & .schema_table {
         padding-inline: 0.5rem;
     }
 }
