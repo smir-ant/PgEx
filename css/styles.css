@@ -40,6 +40,11 @@ main {
     padding: 30px 50px 50px;
 }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
 
 a, a:visited {
     text-decoration: none;

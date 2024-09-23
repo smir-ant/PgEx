@@ -110,10 +110,10 @@ a.disabled {
     border-radius: var(--bordeRadius);
 }
 
-#dataTable {
+/* #dataTable {
     border-collapse: collapse;
     width: 100%;
-}
+} */
 
 
 /* липкий заголовок таблицы с данными + цветовое отделение  */
