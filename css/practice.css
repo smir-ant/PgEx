@@ -32,12 +32,11 @@
     display: flex;
     flex-direction: column;
 
-    & td {
-        width: 1fr;
+    & table {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(auto-fill, 1fr);  /* Столбцы одинакового размера */
     }
-    /* & img {
-        height: 20rem;
-    } */
 }
 
 /* ----------- задачи ----------- */

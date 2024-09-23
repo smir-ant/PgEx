@@ -89,4 +89,7 @@ tableSchema.forEach(field => {
 schemaDiv.appendChild(table);
 
 // Добавляем созданный div в контейнер на странице
-document.getElementById('schema').appendChild(schemaDiv);
+// document.getElementById('schema').appendChild(schemaDiv);
+// Добавляем элемент schemaDiv перед первым дочерним элементом
+const schema = document.getElementById('schema');
+schema.insertBefore(schemaDiv, schema.firstChild);
