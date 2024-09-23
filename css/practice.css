@@ -42,6 +42,10 @@
             border-bottom: var(--color-blue) 1px solid;
         } */
     }
+    
+    & #tableName {
+        font-family: monospace;
+    }
 }
 
 /* ----------- задачи ----------- */

@@ -47,7 +47,7 @@ figure {
         border-top: solid 1px var(--color-25proc);
         text-align: center;
 
-        & span {
+        & label {
             color: var(--color-50proc);
             display: block;
             padding: 0.75rem 1.25rem;
@@ -67,7 +67,7 @@ figure {
             border: none;
 
 
-            & span {
+            & label {
                 padding: 0.25rem 0.5rem 0.5rem;
             }
         }
