@@ -36,7 +36,7 @@
                 quibusdam repellat cum ut. Dolorum aperiam aliquam inventore placeat repudiandae culpa delectus natus
                 sapiente ratione cumque at dignissimos rerum, porro dolores adipisci suscipit vero maxime.</p>
 
-                <figure class="schema">
+                <figure id="schema">
                     <img src="assets/lesson01/schema_playlist.png">
                     <figcaption><span>Модель базы данных</span></figcaption>
                 </figure>
@@ -81,15 +81,11 @@
     <script src="scripts/fillTableHtml.js"></script>
     <script src="scripts/status.js"></script>
     <script src="scripts/nextTask.js"></script>
-    <!-- <script type="module" src="scripts/db/music.js">//createDB</script>  -->
-    <script src="scripts/dbSchema.js" data-db="music" type="module">
-    </script> 
+    <script src="scripts/dbSchema.js" data-db="music" type="module">// создаётся createDB из нужного scripts/db + отрисовка схемы</script> 
     
     <script type="module" > // вынужден оставлять js в html, иначе cors получается из-за wasm, как я понял  :(
+        // createDB = [tablename, CREATE, INSERT]
         import { createDB } from './scripts/dbSchema.js';
-        console.log("1:", createDB);
-        
-        console.log("2:", createDB);
         
         const tablename = createDB[0];
         console.log("tableName:", tablename);
