@@ -4,9 +4,11 @@ const dbName = button.getAttribute('data-db');
 console.log("dbName:", dbName);
 
 // Исходные данные
-import { createDB } from `./db/${dbName}.js`;
+// import { createDB } from `./db/${dbName}.js`;
+const module = await import(`./db/${dbName}.js`);
 
-console.log("createDB:",createDB);
+
+console.log("createDB:", module.createDB);
 
 // Функция для парсинга структуры таблицы из SQL-запроса
 function parseTableSchema(schemaString) {
