@@ -43,7 +43,8 @@
         } */
     }
     
-    & #tableName {
+    /* в подписи схемы название таблицы */
+    & label #tableName {
         font-family: monospace;
     }
 }

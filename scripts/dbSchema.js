@@ -1,14 +1,11 @@
 // Получаем значение из data-атрибута текущего скрипта, music например
 const dbName = document.querySelector('script[data-db]').getAttribute('data-db');
 
-console.log("dbName:", dbName);
 
 // Исходные данные
 const module = await import(`./db/${dbName}.js`);
-// console.log("createDB:", );
 
 export const createDB = module.createDB;
-console.log('CreateDB:', createDB);
 
 // Функция для парсинга структуры таблицы из SQL-запроса
 function parseTableSchema(schemaString) {
@@ -56,13 +53,10 @@ const tableSchema = parseTableSchema(createDB[1]); // Структура таб�
 // Вставляем название таблицы (.schema #tableName)
 document.getElementById("tableName").innerText = tableName;
 
-// Создаем div элемент с классом 'schema'
-const schemaDiv = document.createElement('div');
-schemaDiv.classList.add('schema');
 
 // Создаем таблицу
 const table = document.createElement('table');
-table.classList.add('schema');
+table.classList.add('schema_table');
 
 // Создаем заголовок таблицы
 // const headerRow = document.createElement('tr');
@@ -88,11 +82,8 @@ tableSchema.forEach(field => {
     table.appendChild(row);
 });
 
-// Добавляем таблицу в div
-schemaDiv.appendChild(table);
-
 // Добавляем созданный div в контейнер на странице
 // document.getElementById('schema').appendChild(schemaDiv);
 // Добавляем элемент schemaDiv перед первым дочерним элементом
-const schema = document.getElementById('schema');
-schema.insertBefore(schemaDiv, schema.firstChild);
+const schemaBlock = document.getElementById('schema_block');
+schemaBlock.insertBefore(table, schema.firstChild);
