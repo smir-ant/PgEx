@@ -53,6 +53,9 @@ function parseTableSchema(schemaString) {
 const tableName = createDB[0]; // Имя таблицы
 const tableSchema = parseTableSchema(createDB[1]); // Структура таблицы
 
+// Вставляем название таблицы (.schema #tableName)
+document.getElementById("tableName").innerText = tableName;
+
 // Создаем div элемент с классом 'schema'
 const schemaDiv = document.createElement('div');
 schemaDiv.classList.add('schema');
@@ -62,12 +65,12 @@ const table = document.createElement('table');
 table.classList.add('schema');
 
 // Создаем заголовок таблицы
-const headerRow = document.createElement('tr');
-const th = document.createElement('th');
-th.colSpan = 2; // Объединяем две колонки
-th.innerText = tableName;
-headerRow.appendChild(th);
-table.appendChild(headerRow);
+// const headerRow = document.createElement('tr');
+// const th = document.createElement('th');
+// th.colSpan = 2; // Объединяем две колонки
+// th.innerText = tableName;
+// headerRow.appendChild(th);
+// table.appendChild(headerRow);
 
 // Создаем строки таблицы из schemaData
 tableSchema.forEach(field => {

@@ -36,11 +36,11 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* Равномерно разделяем ширину на 3 колонки */
 
-        & th {
-            grid-column: span 2;  /* заголовок таблицы по центру */
+        /* & th {
+            grid-column: span 2;
             text-align: center;
             border-bottom: var(--color-blue) 1px solid;
-        }
+        } */
     }
 }
 
