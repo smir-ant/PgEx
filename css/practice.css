@@ -37,7 +37,7 @@
         grid-template-columns: repeat(2, 1fr); /* Равномерно разделяем ширину на 3 колонки */
 
         & th {
-            column-span: 2;
+            grid-column: span 2;  /* заголовок таблицы по центру */
             text-align: center;
         }
     }
