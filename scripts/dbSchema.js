@@ -5,7 +5,10 @@ console.log("dbName:", dbName);
 
 // Исходные данные
 const module = await import(`./db/${dbName}.js`);
-console.log("createDB:", module.createDB);
+// console.log("createDB:", );
+
+export const createDB = module.createDB;
+console.log('CreateDB:', createDB);
 
 // Функция для парсинга структуры таблицы из SQL-запроса
 function parseTableSchema(schemaString) {
