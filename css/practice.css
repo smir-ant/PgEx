@@ -25,6 +25,20 @@
     }
 }
 
+/* ----------- схема бд ----------- */
+.schema {
+    font-family: monospace;
+
+    display: flex;
+    flex-direction: column;
+
+    & td {
+        width: 1fr;
+    }
+    /* & img {
+        height: 20rem;
+    } */
+}
 
 /* ----------- задачи ----------- */
 #group_task {
