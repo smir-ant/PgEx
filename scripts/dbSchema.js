@@ -1,5 +1,5 @@
-// Получаем значение из data-атрибута, music например
-const dbName = document.getAttribute('data-db');
+// Получаем значение из data-атрибута текущего скрипта, music например
+const dbName = document.querySelector('script[data-db]').getAttribute('data-db');
 
 console.log("dbName:", dbName);
 
