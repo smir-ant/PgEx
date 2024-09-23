@@ -1,12 +1,11 @@
 // Получаем значение из data-атрибута, music например
-const dbName = document.getAttribute('data-db');
+const dbName = button.getAttribute('data-db');
 
 console.log("dbName:", dbName);
 
 // Исходные данные
-import { createDB } from `./db/${dbName}.js`;
-
-console.log("createcreateDB:",createDB);
+const module = await import(`./db/${dbName}.js`);
+console.log("dbName:", module.dbName);
 
 // Функция для парсинга структуры таблицы из SQL-запроса
 function parseTableSchema(schemaString) {
