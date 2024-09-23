@@ -48,6 +48,9 @@
         & tr:first-child td {
             padding-top: 0.7rem;
         }
+        & tr:last-child td {
+            padding-bottom: 0.7rem;
+        }
     }
 }
 
