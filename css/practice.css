@@ -35,17 +35,15 @@
     & tr {
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* Равномерно разделяем ширину на 3 колонки */
-
-        /* & th {
-            grid-column: span 2;
-            text-align: center;
-            border-bottom: var(--color-blue) 1px solid;
-        } */
     }
     
     /* в подписи схемы название таблицы */
     & label #tableName {
         font-family: monospace;
+    }
+
+    & #schema_table {
+        padding-inline: 0.5rem;
     }
 }
 
