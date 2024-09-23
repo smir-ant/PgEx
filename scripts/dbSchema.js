@@ -1,5 +1,5 @@
 // Получаем значение из data-атрибута, music например
-const dbName = button.getAttribute('data-db');
+const dbName = document.getAttribute('data-db');
 
 console.log("dbName:", dbName);
 
