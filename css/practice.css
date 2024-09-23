@@ -25,31 +25,36 @@
     }
 }
 
-/* ----------- схема бд ----------- */
-.schema_block {
-    font-family: monospace;
-
+/* ----------- схемы бд ----------- */
+section#schema {
     display: flex;
-    flex-direction: column;
 
-    & tr {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Равномерно разделяем ширину на 3 колонки */
-    }
-    
-    /* в подписи схемы название таблицы */
-    & label #tableName {
+    /* ❗️❗️❗️❗️❗️❗️❗️ СДЕЛАТЬ ПОДДЕРЖКУ НЕСКОЛЬКИХ СХЕМ ❗️❗️❗️❗️❗️❗️❗️*/
+    .schema_block {
         font-family: monospace;
-    }
-
-    /* внутри таблицы */
-    & .schema_table {
-        /* из-за желания немножечко расширить таблицу по высоте я вынужден это городить. ибо padding на table не работает */
-        & tr:first-child td {
-            padding-top: 0.7rem;
+    
+        display: flex;
+        flex-direction: column;
+    
+        & tr {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Равномерно разделяем ширину на 3 колонки */
         }
-        & tr:last-child td {
-            padding-bottom: 0.7rem;
+        
+        /* в подписи схемы название таблицы */
+        & label #tableName {
+            font-family: monospace;
+        }
+    
+        /* внутри таблицы */
+        & .schema_table {
+            /* из-за желания немножечко расширить таблицу по высоте я вынужден это городить. ибо padding на table не работает */
+            & tr:first-child td {
+                padding-top: 0.7rem;
+            }
+            & tr:last-child td {
+                padding-bottom: 0.7rem;
+            }
         }
     }
 }
