@@ -30,4 +30,5 @@
     /* полупрозрачный цвет для текста */
     --color-25proc: color-mix(in srgb, var(--color-4readingFront) 25%, transparent);
     --color-50proc: color-mix(in srgb, var(--color-4readingFront) 50%, transparent);
+    --color-blue: #3a79d7;
 }

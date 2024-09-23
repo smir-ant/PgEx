@@ -39,6 +39,7 @@
         & th {
             grid-column: span 2;  /* заголовок таблицы по центру */
             text-align: center;
+            border-bottom: var(--color-blue) 1px solid;
         }
     }
 }
@@ -178,7 +179,7 @@ td, th {
 
 /* SQL keywords color */
 .highlight {
-    color: #3a79d7;
+    color: var(--color-blue);
 
 }
 

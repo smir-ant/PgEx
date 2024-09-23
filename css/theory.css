@@ -32,6 +32,7 @@ figure {
     display: block;
     border: 1px solid var(--color-25proc);
     border-radius: var(--bordeRadius);
+    overflow: hidden;
 
     /* внутри просто картинка */
     & img {
