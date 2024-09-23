@@ -33,11 +33,12 @@
     flex-direction: column;
 
     & tr {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Равномерно разделяем ширину на 3 колонки */
 
-        & td, th {
-            flex: 1; /* Все ячейки будут одинаково распределены */
+        & th {
+            column-span: 2;
+            text-align: center;
         }
     }
 }
