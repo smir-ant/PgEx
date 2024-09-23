@@ -86,4 +86,4 @@ tableSchema.forEach(field => {
 // document.getElementById('schema').appendChild(schemaDiv);
 // Добавляем элемент schemaDiv перед первым дочерним элементом
 const schemaBlock = document.getElementById('schema_block');
-schemaBlock.insertBefore(table, schema.firstChild);
+schemaBlock.insertBefore(table, schemaBlock.firstChild);
