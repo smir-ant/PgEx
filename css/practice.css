@@ -50,10 +50,10 @@ section#schema {
         & .schema_table {
             /* из-за желания немножечко расширить таблицу по высоте я вынужден это городить. ибо padding на table не работает */
             & tr:first-child td {
-                padding-top: 0.7rem;
+                padding-top: 0.5rem;
             }
             & tr:last-child td {
-                padding-bottom: 0.7rem;
+                padding-bottom: 0.5rem;
             }
         }
     }
