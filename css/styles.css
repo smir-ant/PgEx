@@ -52,7 +52,11 @@ table:has(:not(#dataTable)) {
 
     /* линия пунктирная между строками (вниз всем кроме последней) */
     & tr:not(:last-child) {
-        border-bottom: 1px var(--color-25proc) dotted;
+        /* border-bottom: 1px var(--color-25proc) dotted; */
+        /* сделать чуть менее кучный пунктир */
+        border-bottom: 1px dashed var(--color-25proc);
+        border-image: linear-gradient(to right, var(--color-25proc) 33%, rgba(255, 255, 255, 0) 0%) 1 100%;
+        border-image-slice: 1;
     }
 }
 
