@@ -2,7 +2,7 @@
 const dbName = document.querySelector('script[data-db]').getAttribute('data-db');
 
 // Импортируем модуль с таблицами
-const module = await import(`./db/${dbName}.js`);
+export const module = await import(`./db/${dbName}.js`);
 
 // массив таблиц [['название','создание','наполнение'],['название','создание','наполнение'],]
 const tablesData = module.createDB;
