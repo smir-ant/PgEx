@@ -105,6 +105,21 @@ a.disabled {
 #group_table {
     grid-area: table;
     overflow-x: scroll;
+       
+    /* липкий заголовок таблицы с данными + цветовое отделение  */
+    & thead tr {
+        top: 0;
+        position: sticky;
+
+        filter: drop-shadow(0px 0px 2px var(--color-4readingFront));
+    }
+    & tr:nth-child(even), th {
+        background-color: var(--color-trEven);
+    }
+    & td, th {
+        padding: 4.5px 20px;
+        text-align: left;
+    }
 }
 
 #containerTable {
