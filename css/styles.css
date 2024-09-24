@@ -40,8 +40,8 @@ main {
     padding: 30px 50px 50px;
 }
 
-/* ------ таблицы ------*/
-table {
+/* ------ таблицы (все кроме данных с sql ------*/
+table:has(:not(#dataTable)) {
     border-collapse: collapse;
     width: 100%;
 
@@ -50,8 +50,9 @@ table {
         text-align: left;
     }
 
-    & tr {
-        border: 1px var(--color-25proc) dotted;
+    /* линия пунктирная между строками (вниз всем кроме последней) */
+    & tr:not(:last-child) {
+        border-bottom: 1px var(--color-25proc) dotted;
     }
 }
 
