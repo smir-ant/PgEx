@@ -107,7 +107,6 @@
         const dataTable = document.getElementById('dataTable');
         const sqlInput = document.getElementById('sqlInput'); 
         // sqlInput.innerHTML = `SELECT * FROM ${tablename};`;
-        highlightEl();  // стартовый select * from разукрасить
         let db = null;
 
         import { PGlite } from "https://cdn.jsdelivr.net/npm/@electric-sql/pglite/dist/index.js";
@@ -145,8 +144,12 @@
             // await db.query(`INSERT INTO ${tablename}` + createDB[2]);
             */
 
+            const firstQuery = `SELECT * FROM ${createDB[0][0]};`
+            sqlInput.textContent = firstQuery;
+            highlightEl();  // стартовый select * from разукрасить
+
             // из бд закидываем это в html
-            const result = await db.query(`SELECT * FROM ${createDB[0][0]};`);
+            const result = await db.query(firstQuery);
             fillTableHtml(result.rows, result.fields);  
 
             setStatus(`БД готова к работе. Всего записей: ${result.rows.length}`);
