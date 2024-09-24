@@ -29,7 +29,6 @@
 section#schema {
     display: flex;
 
-    /* ❗️❗️❗️❗️❗️❗️❗️ СДЕЛАТЬ ПОДДЕРЖКУ НЕСКОЛЬКИХ СХЕМ ❗️❗️❗️❗️❗️❗️❗️*/
     .schema_block {
         font-family: monospace;
     
@@ -39,11 +38,6 @@ section#schema {
         & tr {
             display: grid;
             grid-template-columns: repeat(2, 1fr); /* Равномерно разделяем ширину на 3 колонки */
-        }
-        
-        /* в подписи схемы название таблицы */
-        & label #tableName {
-            font-family: monospace;
         }
     
         /* внутри таблицы */

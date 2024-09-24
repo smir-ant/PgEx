@@ -1,40 +1,35 @@
-// Получаем значение из data-атрибута текущего скрипта, music например
+// Получаем значение из data-атрибута текущего скрипта (например, 'music')
 const dbName = document.querySelector('script[data-db]').getAttribute('data-db');
 
-
-// Исходные данные
+// Импортируем модуль с таблицами
 const module = await import(`./db/${dbName}.js`);
 
-export const createDB = module.createDB;
+// массив таблиц [['название','создание','наполнение'],['название','создание','наполнение'],]
+const tablesData = module.createDB;
 
 // Функция для парсинга структуры таблицы из SQL-запроса
 function parseTableSchema(schemaString) {
-    // Убираем лишние символы и разбиваем строку по запятым
     const fields = schemaString
-        .replace(/\n/g, '') // Убираем переносы строк
-        .replace(/[();]/g, '') // Убираем скобки и точки с запятой
-        .split(','); // Разделяем по запятым
+        .replace(/\n/g, '')  // Убираем переносы строк
+        .replace(/[();]/g, '')  // Убираем скобки и точки с запятой
+        .split(',');  // Разделяем по запятым
 
-    // Массив для хранения полей таблицы
     const parsedFields = [];
 
     fields.forEach(field => {
-        // Разделяем строку на части: имя поля и его тип
-        const parts = field.trim().split(/\s+/); // Разделяем по пробелам
-        const fieldName = parts[0].toLowerCase(); // Приводим название колонки к нижнему регистру
+        const parts = field.trim().split(/\s+/);  // Разделяем строку на части
+        const fieldName = parts[0].toLowerCase();  // Имя поля в нижнем регистре
+        let fieldType = parts.slice(1).join(' ');  // Тип данных
 
-        // Объединяем тип данных (всё что после названия колонки)
-        let fieldType = parts.slice(1).join(' ');
-
-        // Убираем "NOT NULL" и другие ограничения, оставляем только тип
+        // Очищаем тип от лишних ограничений
         fieldType = fieldType.replace('NOT NULL', '').trim();
 
-        // Если поле является PRIMARY KEY, заменяем тип SERIAL на INT и добавляем ключ
+        // Если PRIMARY KEY, меняем SERIAL на INT и добавляем ключ
         if (fieldType.includes('SERIAL PRIMARY KEY')) {
             fieldType = '🔑 INT';
         }
 
-        // Исправляем строку для поля с типом VARCHAR(255), чтобы сохранить скобки
+        // Исправляем строку для VARCHAR(255)
         fieldType = fieldType.replace('VARCHAR255', 'VARCHAR(255)');
 
         parsedFields.push({
@@ -46,44 +41,45 @@ function parseTableSchema(schemaString) {
     return parsedFields;
 }
 
-// Парсим структуру таблицы
-const tableName = createDB[0]; // Имя таблицы
-const tableSchema = parseTableSchema(createDB[1]); // Структура таблицы
+// Секция для всех таблиц
+const schemaSection = document.getElementById('schema');
 
-// Вставляем название таблицы (.schema #tableName)
-document.getElementById("tableName").innerText = tableName;
+// Для каждой таблицы из createDB создаем отдельный блок (figure)
+tablesData.forEach(tableData => {
+    const tableName = tableData[0];  // Название таблицы
+    const tableSchema = parseTableSchema(tableData[1]);  // Структура таблицы
 
+    // Создаем figure для каждой таблицы
+    const figure = document.createElement('figure');
+    figure.classList.add('schema_block');
 
-// Создаем таблицу
-const table = document.createElement('table');
-table.classList.add('schema_table');
+    // Схема будет в table внутри figure
+    const table = document.createElement('table');
+    table.classList.add('schema_table');
 
-// Создаем заголовок таблицы
-// const headerRow = document.createElement('tr');
-// const th = document.createElement('th');
-// th.colSpan = 2; // Объединяем две колонки
-// th.innerText = tableName;
-// headerRow.appendChild(th);
-// table.appendChild(headerRow);
+    // Создаем строки для полей таблицы
+    tableSchema.forEach(field => {
+        const row = document.createElement('tr');
 
-// Создаем строки таблицы из schemaData
-tableSchema.forEach(field => {
-    const row = document.createElement('tr');
+        const fieldCell = document.createElement('td');
+        fieldCell.innerText = field.name;
 
-    const fieldCell = document.createElement('td');
-    fieldCell.innerText = field.name;
+        const typeCell = document.createElement('td');
+        typeCell.innerText = field.type;
 
-    const typeCell = document.createElement('td');
-    typeCell.innerText = field.type;
+        row.appendChild(fieldCell);
+        row.appendChild(typeCell);
+        table.appendChild(row);
+    });
 
-    row.appendChild(fieldCell);
-    row.appendChild(typeCell);
+    // Добавляем таблицу в figure
+    figure.appendChild(table);
 
-    table.appendChild(row);
+    // Создаем подпись для таблицы (figcaption)
+    const figcaption = document.createElement('figcaption');
+    figcaption.innerHTML = `<label>Таблица <span class="mono">${tableName}</span></label>`;
+    figure.appendChild(figcaption);
+
+    // Добавляем figure в секцию schema
+    schemaSection.appendChild(figure);
 });
-
-// Добавляем созданный div в контейнер на странице
-// document.getElementById('schema').appendChild(schemaDiv);
-// Добавляем элемент schemaDiv перед первым дочерним элементом
-const schemaBlock = document.getElementsByClassName('schema_block');
-schemaBlock[0].insertBefore(table, schemaBlock[0].firstChild);
