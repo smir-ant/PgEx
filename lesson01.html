@@ -93,17 +93,16 @@
     <script type="module" > // вынужден оставлять js в html, иначе cors получается из-за wasm, как я понял  :(
         // createDB = [tablename, CREATE, INSERT]
         import { createDB } from './scripts/dbSchema.js';
-        console.log("createDB из lesson01:", createDB);
 
-        const tablename = createDB[0];
-        console.log("tableName:", tablename);
         const answers = [
-            `SELECT title FROM ${tablename};`,
-            `SELECT artist FROM ${tablename};`,
-            `SELECT title, artist FROM ${tablename};`,
-            `SELECT title, release FROM ${tablename};`,
-            `SELECT * FROM ${tablename};`,
+            `SELECT title FROM ${createDB[0][0]};`,
+            `SELECT artist FROM ${createDB[0][0]};`,
+            `SELECT title, artist FROM ${createDB[0][0]};`,
+            `SELECT title, release FROM ${createDB[0][0]};`,
+            `SELECT * FROM ${createDB[0][0]};`,
         ]
+        console.log("tableName:", createDB[0][0]);
+        
 
         const dataTable = document.getElementById('dataTable');
         const sqlInput = document.getElementById('sqlInput'); 
@@ -121,13 +120,30 @@
             // await db.query('DROP TABLE IF EXISTS ${tablename};');
             
             // создаём бд
-            await db.query(`CREATE TABLE ${tablename}` + createDB[1]);
-                
+            async function createTables(createDB) {
+                for (const dbModel of createDB) {
+                    await db.query(`CREATE TABLE ${dbModel[0]}` + dbModel[1]);
+                }
+            }
+            createTables(createDB);
+            
             // наполняем бд
-            await db.query(`INSERT INTO ${tablename}` + createDB[2]);
+            async function fillTables(createDB) {
+                for (const dbModel of createDB) {
+                    await db.query(`INSERT INTO ${dbModel[0]}` + dbModel[2]);
+                }
+            }
+            fillTables(createDB);
+
+            /* // не подходит, ибо надо сразу несколько создать + в await
+            // создаём бд
+            // await db.query(`CREATE TABLE ${tablename}` + createDB[1]);
+            // наполняем бд
+            // await db.query(`INSERT INTO ${tablename}` + createDB[2]);
+            */
 
             // из бд закидываем это в html
-            const result = await db.query(`SELECT * FROM ${tablename};`);
+            const result = await db.query(`SELECT * FROM ${createDB[0][0]};`);
             fillTableHtml(result.rows, result.fields);  
 
             setStatus(`БД готова к работе. Всего записей: ${result.rows.length}`);
