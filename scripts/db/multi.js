@@ -27,8 +27,7 @@ export const createDB = [
         
         ,` (Title) VALUES
         ('гейство'),
-        ('суета')
-        ;`
+        ('суета');`
     ],
     [
         `eboy`,
@@ -37,10 +36,9 @@ export const createDB = [
         id SERIAL PRIMARY KEY, 
         price INT NOT NULL);`
         
-        ,` (Title) VALUES
+        ,` (price) VALUES
         (123),
         (321),
-        (666)
-        ;`
+        (666);`
     ],
 ]

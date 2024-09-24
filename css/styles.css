@@ -49,6 +49,10 @@ table {
         padding: 4.5px 20px;
         text-align: left;
     }
+
+    & tr {
+        border: 1px var(--color-25proc) dotted;
+    }
 }
 
 
