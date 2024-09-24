@@ -122,8 +122,8 @@
             // создаём бд
             async function createTables(createDB) {
                 for (const dbModel of createDB) {
+                    console.log("----- СОЗДАМ:", `CREATE TABLE ${dbModel[0]}` + dbModel[1])
                     await db.query(`CREATE TABLE ${dbModel[0]}` + dbModel[1]);
-                    console.log("----- СОЗДАЛ:", `CREATE TABLE ${dbModel[0]}` + dbModel[1])
 
                 }
             }
@@ -132,12 +132,12 @@
             // наполняем бд
             async function fillTables(createDB) {
                 for (const dbModel of createDB) {
+                    console.log("----- ВСТАВЛЮ:", `INSERT INTO ${dbModel[0]}` + dbModel[2])
                     await db.query(`INSERT INTO ${dbModel[0]}` + dbModel[2]);
-                    console.log("----- ВСТАВИЛ:", `INSERT INTO ${dbModel[0]}` + dbModel[2])
                 }
             }
             fillTables(createDB);
-            
+
             /* // не подходит, ибо надо сразу несколько создать + в await
             // создаём бд
             // await db.query(`CREATE TABLE ${tablename}` + createDB[1]);

@@ -116,10 +116,6 @@ a.disabled {
     & tr:nth-child(even), th {
         background-color: var(--color-trEven);
     }
-    & td, th {
-        padding: 4.5px 20px;
-        text-align: left;
-    }
 }
 
 #containerTable {

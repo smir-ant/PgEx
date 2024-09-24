@@ -44,6 +44,11 @@ main {
 table {
     border-collapse: collapse;
     width: 100%;
+
+    & td, th {
+        padding: 4.5px 20px;
+        text-align: left;
+    }
 }
 
 
