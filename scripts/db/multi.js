@@ -27,7 +27,7 @@ export const createDB = [
         
         ,` (Title) VALUES
         ('гейство'),
-        ('суета'),
+        ('суета')
         ;`
     ],
     [
@@ -40,7 +40,7 @@ export const createDB = [
         ,` (Title) VALUES
         (123),
         (321),
-        (666),
+        (666)
         ;`
     ],
 ]
