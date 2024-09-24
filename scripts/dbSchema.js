@@ -2,10 +2,10 @@
 const dbName = document.querySelector('script[data-db]').getAttribute('data-db');
 
 // Импортируем модуль с таблицами
-export const module = await import(`./db/${dbName}.js`);
+const module = await import(`./db/${dbName}.js`);
 
 // массив таблиц [['название','создание','наполнение'],['название','создание','наполнение'],]
-const tablesData = module.createDB;
+export const createDB = module.createDB;
 
 // Функция для парсинга структуры таблицы из SQL-запроса
 function parseTableSchema(schemaString) {
@@ -45,7 +45,7 @@ function parseTableSchema(schemaString) {
 const schemaSection = document.getElementById('schema');
 
 // Для каждой таблицы из createDB создаем отдельный блок (figure)
-tablesData.forEach(tableData => {
+createDB.forEach(tableData => {
     const tableName = tableData[0];  // Название таблицы
     const tableSchema = parseTableSchema(tableData[1]);  // Структура таблицы
 
