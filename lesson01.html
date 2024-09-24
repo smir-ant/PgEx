@@ -123,6 +123,8 @@
             async function createTables(createDB) {
                 for (const dbModel of createDB) {
                     await db.query(`CREATE TABLE ${dbModel[0]}` + dbModel[1]);
+                    console.log("----- СОЗДАЛ:", `CREATE TABLE ${dbModel[0]}` + dbModel[1])
+
                 }
             }
             createTables(createDB);
@@ -131,6 +133,7 @@
             async function fillTables(createDB) {
                 for (const dbModel of createDB) {
                     await db.query(`INSERT INTO ${dbModel[0]}` + dbModel[2]);
+                    console.log("----- ВСТАВИЛ:", `INSERT INTO ${dbModel[0]}` + dbModel[2])
                 }
             }
             fillTables(createDB);
