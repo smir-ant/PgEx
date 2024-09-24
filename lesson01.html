@@ -93,7 +93,8 @@
     <script type="module" > // вынужден оставлять js в html, иначе cors получается из-за wasm, как я понял  :(
         // createDB = [tablename, CREATE, INSERT]
         import { createDB } from './scripts/dbSchema.js';
-        
+        console.log("createDB из lesson01:", createDB);
+
         const tablename = createDB[0];
         console.log("tableName:", tablename);
         const answers = [
@@ -106,7 +107,7 @@
 
         const dataTable = document.getElementById('dataTable');
         const sqlInput = document.getElementById('sqlInput'); 
-        sqlInput.innerHTML = `SELECT * FROM ${tablename};`;
+        // sqlInput.innerHTML = `SELECT * FROM ${tablename};`;
         highlightEl();  // стартовый select * from разукрасить
         let db = null;
 
