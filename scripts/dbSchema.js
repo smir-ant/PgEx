@@ -7,6 +7,10 @@ const module = await import(`./db/${dbName}.js`);
 // массив таблиц [['название','создание','наполнение'],['название','создание','наполнение'],]
 export const createDB = module.createDB;
 
+
+
+// отрисовка схем таблиц на странице
+/*
 // Функция для парсинга структуры таблицы из SQL-запроса
 function parseTableSchema(schemaString) {
     const fields = schemaString
@@ -83,3 +87,5 @@ createDB.forEach(tableData => {
     // Добавляем figure в секцию schema
     schemaSection.appendChild(figure);
 });
+
+*/

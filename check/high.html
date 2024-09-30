@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .comment { color: green; font-weight: bold; }
+        .keyword { color: blue; font-weight: bold; }
+        #editor {width: 500px; height: 500px;}э
+
+        br {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor" contenteditable="true"></div>
+
+    <script>
+        // Регулярное выражение для ключевых слов SQL
+        const sqlKeywords = /\b(SELECT|FROM|WHERE|INSERT|DELETE|UPDATE)\b/gi;
+      
+        // Регулярное выражение для комментариев (однострочные и многострочные)
+        const comments = /(--[^\n]*|\/\*[\s\S]*?\*\/)/g;
+      
+        // Обработчик события ввода текста в элементе с contenteditable
+        document.getElementById("editor").addEventListener("input", function () {
+          // Получаем текущий текст без HTML (чистый текст)
+          let content = this.textContent;
+      
+          // Заменяем ключевые слова SQL на HTML с классами для подсветки
+          content = content.replace(sqlKeywords, '<span class="keyword">$1</span>');
+      
+          // Заменяем комментарии на HTML с классом для подсветки
+          content = content.replace(comments, '<span class="comment">$1</span>');
+      
+          // Вставляем изменённый HTML обратно в элемент
+          this.innerHTML = content;
+      
+          // После изменения содержимого нужно вернуть курсор на правильную позицию
+          placeCaretAtEnd(this);
+        });
+      
+        // Функция для установки курсора в конец элемента после обновления содержимого
+        function placeCaretAtEnd(el) {
+          // Ставим фокус на элемент (чтобы можно было продолжить ввод текста)
+          el.focus();
+      
+          // Если поддерживаются современные методы управления выбором текста
+          if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+            // Создаем новый диапазон (range) для манипуляции выбором
+            let range = document.createRange();
+      
+            // Указываем диапазону, что он должен охватывать весь контент внутри элемента
+            range.selectNodeContents(el);
+      
+            // Указываем, что курсор должен быть в самом конце контента
+            range.collapse(false); // false - в конец
+      
+            // Получаем текущее выделение текста
+            let sel = window.getSelection();
+      
+            // Очищаем все предыдущие выделения
+            sel.removeAllRanges();
+      
+            // Устанавливаем новое выделение — наш диапазон
+            sel.addRange(range);
+          }
+        }
+      
+        
+
+
+
+
+
+
+        // Обработка нажатия клавиши Enter
+        document.getElementById('editor').addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Предотвращаем стандартное поведение
+
+            // Вставляем новую строку
+            insertNewLine();
+        }
+
+        // Обработка нажатия Tab
+        if (event.key === 'Tab') {
+            event.preventDefault(); // Предотвращаем стандартное поведение
+
+            // Вставляем отступ (4 пробела)
+            document.execCommand('insertText', false, '    '); // Вставляем 4 пробела
+        }
+        });
+
+        // Функция для вставки новой строки
+        function insertNewLine() {
+        const selection = window.getSelection();
+        const range = selection.getRangeAt(0);
+
+        // Создаем элемент <br>, который будет вставлен
+        const br = document.createElement("br");
+
+        // Вставляем <br> на место курсора
+        range.deleteContents();
+        range.insertNode(br);
+
+        // Перемещаем курсор после <br>
+        range.setStartAfter(br);
+        range.setEndAfter(br);
+
+        // Устанавливаем обновленный диапазон (range)
+        selection.removeAllRanges();
+        selection.addRange(range);
+        }
+
+        // Добавляем обработку комментирования при нажатии Ctrl + /
+        document.addEventListener('keydown', function (event) {
+        // Проверяем, нажаты ли клавиши Ctrl + /
+        if (event.ctrlKey && event.key === '/') {
+            event.preventDefault(); // Предотвращаем стандартное поведение
+
+            let selection = window.getSelection(); // Получаем текущее выделение текста
+
+            if (selection.rangeCount > 0) {
+            let range = selection.getRangeAt(0);
+            let selectedText = range.toString();
+
+            // Если текст не выделен, будем работать с текущей строкой
+            if (selectedText === '') {
+                let start = range.startContainer;
+                let text = start.textContent || start.nodeValue;
+
+                // Получаем текущую строку
+                let cursorPos = range.startOffset;
+                let lineStart = text.lastIndexOf('\n', cursorPos - 1) + 1;
+                let lineEnd = text.indexOf('\n', cursorPos);
+                if (lineEnd === -1) lineEnd = text.length;
+
+                let currentLine = text.slice(lineStart, lineEnd);
+
+                // Комментируем строку, если она еще не закомментирована
+                if (currentLine.trim().startsWith('--')) {
+                currentLine = currentLine.replace(/^--\s*/, ''); // Убираем однострочный комментарий
+                } else {
+                currentLine = `-- ${currentLine}`; // Добавляем однострочный комментарий
+                }
+
+                // Заменяем текущую строку
+                let newText = text.slice(0, lineStart) + currentLine + text.slice(lineEnd);
+                start.textContent = newText;
+
+                // Обновляем подсветку синтаксиса
+                document.getElementById("editor").dispatchEvent(new Event('input'));
+            } else {
+                // Если выделен текст, обрабатываем как многострочный комментарий
+                if (selectedText.startsWith('/*') && selectedText.endsWith('*/')) {
+                // Убираем многострочный комментарий, если он уже добавлен
+                selectedText = selectedText.slice(2, -2).trim();
+                } else {
+                // Иначе добавляем многострочный комментарий
+                selectedText = `/* ${selectedText} */`;
+                }
+
+                // Заменяем выделенный текст
+                range.deleteContents();
+                range.insertNode(document.createTextNode(selectedText));
+
+                // Обновляем подсветку синтаксиса
+                document.getElementById("editor").dispatchEvent(new Event('input'));
+            }
+            }
+        }
+        });
+
+        // Обработка копирования текста
+        document.getElementById("editor").addEventListener("copy", function (e) {
+        e.preventDefault(); // Предотвращаем стандартное поведение копирования
+
+        // Получаем чистый текст без HTML тегов
+        const text = this.textContent;
+
+        // Вставляем этот текст в буфер обмена
+        e.clipboardData.setData('text/plain', text);
+        });
+
+      
+
+
+
+
+
+
+
+
+
+        // Обработка копирования текста
+        document.getElementById("editor").addEventListener("copy", function (e) {
+          e.preventDefault(); // Предотвращаем стандартное поведение копирования
+      
+          // Получаем чистый текст без HTML тегов
+          const text = this.textContent;
+      
+          // Вставляем этот текст в буфер обмена
+          e.clipboardData.setData('text/plain', text);
+        });
+    </script>
+</body>
+</html>
