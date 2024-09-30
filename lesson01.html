@@ -76,14 +76,18 @@
                 <a class="btn disabled" href="lesson02.html" id="finishBtn">Выполни задания выше</a>
             </section>
 
-            <section id="group_code"> 
-                    <div id="colored" class="code"></div>
-                    <div id="sqlInput" class="code" contenteditable="true" spellcheck="false"></div>
+            <section id="group_code" class="container"> 
+                <!-- #sqlInput -->
+                <textarea id="sqlInput" class="code"></textarea>
+                    <!-- <div id="colored" class="code"></div>
+                    <div id="sqlInput" class="code" contenteditable="true" spellcheck="false"></div> -->
             </section>  
         </section>
     </main>
 
-    <script src="scripts/higlightSQL.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="scripts/highlightSQL.js"></script>
+
     <script src="scripts/isRightAns.js"></script>
     <script src="scripts/fillTableHtml.js"></script>
     <script src="scripts/status.js"></script>
