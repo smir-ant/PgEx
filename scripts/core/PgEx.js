@@ -13,7 +13,7 @@ export class PgEx {
             status: document.getElementById('status'),
             dataTable: document.getElementById('dataTable'),
             tasksList: document.querySelector('#group_task ol'),
-            nextBtn: document.getElementById('finishBtn') // Reusing existing ID for now
+            nextBtn: document.getElementById('finishBtn')
         };
 
         this.init();
@@ -44,7 +44,7 @@ export class PgEx {
             this.ui.nextBtn.classList.add('disabled');
         }
 
-        this.setStatus("Ready. Run the query to see results.");
+        this.setStatus("Ready. Enter the query to see results.");
     }
 
     setStatus(msg) {

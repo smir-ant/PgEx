@@ -103,7 +103,7 @@
     min-height: 150px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 850px) {
     #sect_practice {
         display: flex;
         flex-direction: row;

@@ -67,6 +67,7 @@ hr {
 }
 
 .btn.disabled {
+    opacity: 0.5;
     background: #444;
     cursor: not-allowed;
     pointer-events: none;
