@@ -1,10 +1,12 @@
-@import 'variables.css';
+/* @import 'variables.css'; - Linked in HTML */
 
 body {
+
     /* коррекция отступов в раскрываемых списках */
     & details p {
         margin-block: 1rem;
     }
+
     & details ul {
         margin: 1rem 0 2rem;
     }
@@ -30,8 +32,8 @@ figure {
     margin: 1rem auto;
     width: fit-content;
     display: block;
-    border: 1px solid var(--color-25proc);
-    border-radius: var(--bordeRadius);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     overflow: hidden;
 
     /* внутри просто картинка */
@@ -44,11 +46,12 @@ figure {
     & figcaption {
 
         width: 100%;
-        border-top: solid 1px var(--color-25proc);
+        border-top: solid 1px var(--border-color);
         text-align: center;
 
         & label {
-            color: var(--color-50proc);
+            color: #888;
+            /* Muted text */
             display: block;
             padding: 0.75rem 1.25rem;
         }
@@ -84,27 +87,29 @@ details {
     }
 
     /* увеличить расстояние от маркера до текста */
-    & > summary > span {
+    &>summary>span {
         margin-left: 0.25rem;
     }
 
-    & > summary {
-        border-radius: var(--bordeRadius);
+    &>summary {
+        border-radius: var(--border-radius);
         padding: 0.5rem 1rem;
-        background-color: var(--color-4readingFront);
-        color: var(--color-4readingBack);
-        border: 1px #ccc solid;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border: 1px var(--border-color) solid;
         cursor: pointer;
     }
 
-    &[open] > summary {
-        color: var(--color-4readingBack); 
-        background-color: var(--color-4readingFront);
+    &[open]>summary {
+        color: var(--text-color);
+        background-color: var(--card-bg);
+        border-color: var(--accent-color);
+        /* Highlight open */
     }
 
-    & > div {
-        border-radius: var(--bordeRadius);
-        border: 1px var(--color-4readingFront) solid;
+    &>div {
+        border-radius: var(--border-radius);
+        border: 1px var(--border-color) solid;
 
         /* чтобы открывающийся блок был как бы продолжением summary, из-под него выходил */
         margin-top: -2.5rem;
@@ -130,7 +135,7 @@ details {
     font-size: 0.85rem;
     position: relative;
     cursor: default;
-    border: 1px var(--color-4readingFront) solid;
+    border: 1px var(--accent-color) solid;
     opacity: 0.5;
     margin-left: 0.25rem;
     /* делаем круг */
@@ -141,16 +146,18 @@ details {
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    color: var(--accent-color);
 
     /* подсказка идёт сразу после вопросика */
-    & + .tipText {
+    &+.tipText {
         position: absolute;
         z-index: 10;
-        background-color: var(--color-4readingFront);
-        color: var(--color-4readingBack);
+        background-color: var(--card-bg);
+        color: var(--text-color);
         padding: 0.25rem 0.75rem;
-        border-radius: calc(var(--bordeRadius) / 1.5 );
-        word-wrap: break-word; /* Перенос слов, если tip слишком длинный */
+        border-radius: calc(var(--border-radius) / 1.5);
+        word-wrap: break-word;
+        /* Перенос слов, если tip слишком длинный */
         z-index: 10;
         opacity: 0;
         transition: opacity 0.3s ease;
@@ -158,6 +165,6 @@ details {
 
 
         /* тень */
-        box-shadow: 0px 0px 5px 5px rgba(34, 60, 80, 0.2);
+        box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
     }
 }

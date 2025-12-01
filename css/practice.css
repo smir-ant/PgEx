@@ -1,145 +1,302 @@
-@import 'variables.css';
-
-/* ==================== PRACTICE SECTION ==================== */
-#sect_practice {
-    display: grid;
-      grid-template-areas:
-        "table task"
-        "code task";
-      grid-template-columns: 2fr 1fr;
-      grid-template-rows: auto 1fr;
-      gap: 10px;
-      height: fit-content;
-      margin-top: 25px;
-}
-
-/* ======= АДАПТИВ (мобилки) ======= */
-@media (max-width: 768px) {
-    #sect_practice {
-        grid-template-areas: 
-            "table"
-            "code"
-            "task";
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
-    }
-}
-
-/* ----------- схемы бд ----------- */
-section#schema {
+/* Schema Visualization */
+#schema {
     display: flex;
-
-    .schema_block {
-        font-family: monospace;
-    
-        display: flex;
-        flex-direction: column;
-    
-        & tr {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Равномерно разделяем ширину на 3 колонки */
-        }
-    
-        /* внутри таблицы */
-        & .schema_table {
-            /* из-за желания немножечко расширить таблицу по высоте я вынужден это городить. ибо padding на table не работает */
-            & tr:first-child td {
-                padding-top: 0.5rem;
-            }
-            & tr:last-child td {
-                padding-bottom: 0.5rem;
-            }
-        }
-    }
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
 }
 
-/* ----------- задачи ----------- */
-#group_task {
-    grid-area: task;
+.schema_block {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    min-width: 200px;
+}
 
-    border-radius: var(--bordeRadius);
-    background-color: var(--color-trEven);
-    padding: 10px 20px;
+.schema_block figcaption {
+    font-weight: bold;
+    margin-bottom: var(--spacing-sm);
+    color: var(--accent-color);
+}
 
+.schema_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
 
+.schema_table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.schema_table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Practice Area Grid */
+#sect_practice {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-
-    & ol {
-        padding-left: 20px;
-    }
-
-    & li {
-        margin: 20px 0;
-    }
-    
+    gap: var(--spacing-sm);
 }
 
-/* code у меня здесь это ключевые слова в задачах и тексте урока выделяются */
-code {
+/* Mobile Order: Table -> Code -> Tasks */
+.practice-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    order: 1;
+}
+
+#group_table {
+    order: 1;
+}
+
+#group_code {
+    order: 2;
+}
+
+#group_task {
+    order: 2;
+}
+
+/* Tile Styling */
+#group_task {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: var(--spacing-sm);
+    margin-bottom: 0;
+    /* Let gap handle spacing */
+}
+
+#group_table,
+#group_code {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0;
+    /* Edge-to-edge */
+    overflow: hidden;
+    margin-bottom: 0;
+    /* Let gap handle spacing */
+}
+
+/* Remove internal container styling since the parent is now the tile */
+#containerTable {
+    border: none;
+    background: transparent;
+    margin-bottom: 0;
+    overflow-x: auto;
+    max-height: 240px;
+    /* Limit height to approx 6 rows */
+}
+
+.code-editor {
+    border: none;
+    /* Parent has border */
+    border-radius: 0;
+    /* Parent has radius */
+    height: 100%;
+    /* Fill the tile */
+    min-height: 150px;
+}
+
+@media (min-width: 1024px) {
+    #sect_practice {
+        display: flex;
+        flex-direction: row;
+        /* Side by side */
+        gap: var(--spacing-md);
+        /* Tighter gap */
+        align-items: stretch;
+        /* Equal height */
+    }
+
+    /* Desktop Layout */
+    .practice-left {
+        flex: 2;
+        order: unset;
+        gap: var(--spacing-md);
+        /* Match #sect_practice gap */
+    }
+
+    #group_task {
+        flex: 1;
+        order: unset;
+        height: auto;
+        /* Let flex stretch it */
+    }
+
+    #group_code {
+        flex: 1;
+        /* Expand to fill vertical space */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .code-editor {
+        flex: 1;
+        /* Editor fills the tile */
+    }
+}
+
+/* Data Table */
+#dataTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#dataTable th,
+#dataTable td {
+    padding: 4px 8px;
+    /* Compact padding */
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    /* Slightly smaller font */
+}
+
+#dataTable th {
+    background: #333;
+    font-weight: bold;
+    position: sticky;
+    /* Sticky header */
+    top: 0;
+    z-index: 1;
+}
+
+/* Tasks */
+#group_task ol {
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+#group_task li {
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    border-radius: 4px;
+    background: var(--card-bg);
+    border-left: 4px solid transparent;
+}
+
+#group_task li.active {
+    border-left-color: var(--accent-color);
+    background: #2a2f35;
+}
+
+#group_task li.completed {
+    border-left-color: var(--success-color);
+    color: #888;
+    text-decoration: line-through;
+}
+
+#group_task li.disabled {
+    opacity: 0.5;
+}
+
+#group_task code {
+    background: #333;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    color: var(--accent-color);
+    /* Blue variable */
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* Code Editor & Highlighting */
+.code-editor {
+    position: relative;
+    min-height: 150px;
+    background: var(--code-bg);
+    /* border and radius handled by parent */
+    overflow: hidden;
+}
+
+.code-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: var(--spacing-md);
+    font-family: var(--font-mono);
     font-size: 1rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border: none;
+    background: transparent;
+    box-sizing: border-box;
+    /* Critical for alignment */
+    margin: 0;
 }
 
-/* выделяется ключевые слова только если задача текущая (не решена и не отключена) */
-li:not(.color-solved):not(.disabled) code {
-    padding: 0 3px 2px;
-    border-bottom: 1px solid var(--color-4readingFront);
+#sqlInput {
+    color: transparent;
+    /* Text is transparent, caret is visible */
+    caret-color: var(--text-color);
+    z-index: 2;
+    resize: none;
+    outline: none;
 }
 
-/* задания неоткрытые */
-li.disabled {
-    opacity: 0.2;
-}
-/* кнопка перехода отключенная */
-a.disabled {
+#colored {
+    z-index: 1;
+    color: var(--text-color);
     pointer-events: none;
 }
-/* задания решенные */
-.solved {
-    color: var(--color-solved);
+
+/* Syntax Highlighting Colors (Prism-like) */
+.token.keyword {
+    color: var(--accent-color);
+    /* Blue variable */
+    font-weight: bold;
 }
 
-
-/* ----------- данные ----------- */
-#group_table {
-    grid-area: table;
-    overflow-x: scroll;
-       
-    /* липкий заголовок таблицы с данными + цветовое отделение  */
-    & thead tr {
-        top: 0;
-        position: sticky;
-
-        filter: drop-shadow(0px 0px 2px var(--color-4readingFront));
-    }
-    & tr:nth-child(even), th {
-        background-color: var(--color-trEven);
-    }
+.token.string {
+    color: #f1fa8c;
 }
 
-#containerTable {
-    border: 1px solid var(--color-trEven);;
-    height: 310px;
-    overflow-y: scroll;
-    border-radius: var(--bordeRadius);
+.token.number {
+    color: #bd93f9;
 }
 
-/* #dataTable {
-    border-collapse: collapse;
-    width: 100%;
-} */
+.token.operator {
+    color: var(--accent-color);
+    /* Blue variable */
+}
 
+.token.punctuation {
+    color: #f8f8f2;
+}
 
+/* Icons */
+.table-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 8px;
+    background-color: var(--accent-color);
+    -webkit-mask-image: url('../assets/table.svg');
+    mask-image: url('../assets/table.svg');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    display: inline-block;
+}
 
+/* Status */
 #status {
-    font-size: 0.8rem;
-    margin: 0.5rem 0 1.5rem;
-    font-family: monospace;
-}
-
-
-/* ----------- код ----------- */
-#group_code {
-    grid-area: code;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: #888;
+    min-height: 1.5em;
+    padding: var(--spacing-sm) var(--spacing-md);
+    /* Add spacing */
+    border-top: 1px solid var(--border-color);
 }

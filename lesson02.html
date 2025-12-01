@@ -4,17 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PgEx 01</title>
+    <title>PgEx 02</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/practice.css">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-
 </head>
 
 <body>
     <a id="github" href="https://github.com/smir-ant/PgEx"><img src="assets/github.svg" alt=""></a>
-
 
     <main>
         <nav>
@@ -22,11 +20,11 @@
         </nav>
 
         <section id="sect_theory">
-            <h1>Урок 1. Выборка: колонки.</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque quisquam labore esse doloribus, a
-                sed voluptatibus obcaecati voluptatem aperiam laborum excepturi voluptas maiores perferendis culpa
-                quibusdam repellat cum ut. Dolorum aperiam aliquam inventore placeat repudiandae culpa delectus natus
-                sapiente ratione cumque at dignissimos rerum, porro dolores adipisci suscipit vero maxime.</p>
+            <h1>Урок 2. Связи и JOIN.</h1>
+            <p>В этом уроке мы научимся связывать таблицы.</p>
+            <p>У нас есть таблица <code>authors</code> (авторы) и <code>books</code> (книги). У каждой книги есть поле
+                <code>author_id</code>, которое ссылается на <code>id</code> автора.
+            </p>
         </section>
 
         <hr>
@@ -54,10 +52,10 @@
 
             <section id="group_task">
                 <div class="container">
-                    <h3 class="section-title">Урок 1. &nbsp; Задания:</h3>
+                    <h3 class="section-title">Задания:</h3>
                     <ol></ol>
                 </div>
-                <a class="btn disabled" href="lesson02.html" id="finishBtn">Далее</a>
+                <a class="btn disabled" href="index.html" id="finishBtn">Завершить</a>
             </section>
         </section>
     </main>
@@ -71,14 +69,11 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
-    <script src="scripts/isRightAns.js"></script>
     <script src="scripts/fillTableHtml.js"></script>
-    <script src="scripts/status.js"></script>
-    <script src="scripts/nextTask.js"></script>
 
     <script type="module">
         import { PgEx } from './scripts/core/PgEx.js';
-        import lessonConfig from './scripts/lessons/lesson01.js';
+        import lessonConfig from './scripts/lessons/lesson02.js';
 
         // Initialize the engine
         new PgEx(lessonConfig);
