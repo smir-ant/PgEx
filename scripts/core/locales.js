@@ -39,6 +39,20 @@ export const locales = {
             correct: "Correct! 🎉",
             all_completed: "All tasks completed! 🏆",
             error: "Error: {msg}"
+        },
+        // Tutorial
+        tutorial: {
+            step1: "Here is the theory. Start the lesson from this.",
+            step2: "Train new knowledge here. The practice block will help you with this.",
+            step3: "This is the data schema you will work with. There may be multiple tables.",
+            step4: "Table names are presented here.",
+            step5: "Write your database query here. It will be executed instantly.",
+            step6: "The result of your query will be displayed here.",
+            step7: "Here you can see the status of your query.",
+            step8: "Tasks for this lesson are listed here.",
+            next: "Next",
+            finish: "Finish Tutorial",
+            skip: "Skip"
         }
     },
     ru: {
@@ -59,7 +73,11 @@ export const locales = {
             theory_p1: "В этом уроке мы научимся связывать таблицы.",
             theory_p2: "У нас есть таблица <code>authors</code> (авторы) и <code>books</code> (книги). У каждой книги есть поле <code>author_id</code>, которое ссылается на <code>id</code> автора.",
             tasks_title: "Задания:",
-            btn_finish: "Завершить"
+            btn_finish: "Завершить",
+            task01: "Выбери всех авторов.",
+            task02: "Выбери названия всех книг.",
+            task03: "Найди все книги, изданные в 1866 году.",
+            task04: "Найди книги автора 'Fyodor Dostoevsky', изданные после 1860 года."
         },
         index: {
             glossary: "Глоссарий",
@@ -81,6 +99,20 @@ export const locales = {
             correct: "Верно! 🎉",
             all_completed: "Все задания выполнены! 🏆",
             error: "Ошибка: {msg}"
+        },
+        // Tutorial
+        tutorial: {
+            step1: "Здесь находится теория. Начни прохождение урока с этого.",
+            step2: "Полученные знания нужно закрепить. Блок с практикой тебе в этом поможет.",
+            step3: "Это схема данных с которыми ты будешь работать. Здесь может быть несколько таблиц.",
+            step4: "Названия таблиц представлены здесь.",
+            step5: "Пиши свой запрос к базе данных сюда. Он будет моментально выполнен.",
+            step6: "Результат твоего запроса будет отображен здесь.",
+            step7: "Здесь можно увидеть статус твоего запроса.",
+            step8: "Задания на этот урок перечислены здесь.",
+            next: "Далее",
+            finish: "Закончить обучение",
+            skip: "Пропустить"
         }
     }
 };

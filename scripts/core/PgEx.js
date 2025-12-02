@@ -1,6 +1,7 @@
 import { Database } from './Database.js';
 import { SchemaRenderer } from './SchemaRenderer.js';
 import { Localization } from './Localization.js';
+import { Tutorial } from './Tutorial.js';
 
 export class PgEx {
     constructor(config) {
@@ -8,6 +9,7 @@ export class PgEx {
         this.db = new Database();
         this.i18n = new Localization();
         this.schemaRenderer = new SchemaRenderer('schema', this.i18n);
+        this.tutorial = new Tutorial(this.i18n);
         this.currentTaskIndex = 0;
         this.lastError = null; // Track last error for re-translation
 
@@ -17,7 +19,8 @@ export class PgEx {
             dataTable: document.getElementById('dataTable'),
             tasksList: document.querySelector('#group_task ol'),
             nextBtn: document.getElementById('finishBtn'),
-            langSwitcher: document.getElementById('langSwitcher')
+            langSwitcher: document.getElementById('langSwitcher'),
+            helpBtn: document.getElementById('helpBtn')
         };
 
         this.init();
@@ -30,6 +33,13 @@ export class PgEx {
         this.schemaRenderer.render(this.config.schema);
         this.renderTasks();
         this.i18n.updatePage();
+
+        // Show help button after load
+        if (this.ui.helpBtn) {
+            setTimeout(() => {
+                this.ui.helpBtn.classList.add('visible');
+            }, 500);
+        }
 
         // Subscribe to language changes
         this.i18n.subscribe(() => {
@@ -50,6 +60,12 @@ export class PgEx {
         this.ui.sqlInput.addEventListener('input', () => this.handleInput());
         if (this.ui.langSwitcher) {
             this.ui.langSwitcher.addEventListener('click', () => this.i18n.toggleLanguage());
+        }
+        if (this.ui.helpBtn) {
+            this.ui.helpBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.tutorial.start();
+            });
         }
 
         // Initial Query

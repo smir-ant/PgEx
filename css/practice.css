@@ -3,6 +3,7 @@
     display: flex;
     gap: var(--spacing-md);
     flex-wrap: wrap;
+    margin-bottom: 2rem;
 }
 
 .schema_block {
@@ -17,6 +18,21 @@
     font-weight: bold;
     margin-bottom: var(--spacing-sm);
     color: var(--accent-color);
+}
+
+/* ... existing code ... */
+/* Tutorial Styles */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Lighter overlay */
+    z-index: 10000;
+    pointer-events: auto;
+    /* Block interactions with page */
 }
 
 .schema_table {
@@ -309,9 +325,7 @@
 }
 
 /* Schema Styles */
-.schema_block {
-    margin-bottom: 2rem;
-}
+/* schema_block margin moved to #schema */
 
 .schema_block figcaption {
     font-weight: bold;
@@ -341,4 +355,78 @@
     font-family: 'Fira Code', monospace;
     color: var(--accent-color);
     cursor: help;
+}
+
+/* Tutorial Styles */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Slightly lighter overlay */
+    z-index: 10000;
+    pointer-events: auto;
+    /* Block interactions with page */
+}
+
+.tutorial-highlight {
+    position: relative;
+    z-index: 10001;
+    box-shadow: 0 0 0 4px var(--warning-color);
+    /* Bright orange border */
+    border-radius: 4px;
+    background-color: var(--card-bg);
+    transition: all 0.3s ease;
+}
+
+.tutorial-tooltip {
+    position: fixed;
+    /* Fixed for center positioning */
+    background: var(--card-bg);
+    border: 2px solid var(--warning-color);
+    /* Orange border */
+    border-radius: 8px;
+    padding: 20px;
+    width: 320px;
+    z-index: 10002;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+    color: var(--text-color);
+}
+
+.tutorial-content p {
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.tutorial-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tutorial-skip {
+    color: var(--text-color);
+    opacity: 0.7;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.tutorial-skip:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.tutorial-next {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+/* Allow overflow during tutorial for highlighting */
+body.tutorial-active #group_table,
+body.tutorial-active #group_code {
+    overflow: visible;
 }
