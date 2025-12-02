@@ -3,6 +3,13 @@ export default {
     schema: [
         {
             name: "playlist",
+            fields: [
+                { name: "id", type: "SERIAL PRIMARY KEY", description: { en: "ID", ru: "ID" } },
+                { name: "title", type: "VARCHAR(255) NOT NULL", description: { en: "Title of track", ru: "Название трека" } },
+                { name: "artist", type: "VARCHAR(255) NOT NULL", description: { en: "Artist of track", ru: "Исполнитель" } },
+                { name: "release", type: "INT NOT NULL", description: { en: "Year of release", ru: "Год выпуска" } },
+                { name: "genre", type: "VARCHAR(255) NOT NULL", description: { en: "Genre of track", ru: "Жанр" } }
+            ],
             ddl: `CREATE TABLE playlist (
                 id SERIAL PRIMARY KEY, 
                 title VARCHAR(255) NOT NULL, 
@@ -44,23 +51,38 @@ export default {
     ],
     tasks: [
         {
-            description: "Find the <code>title</code> of each track",
+            description: {
+                en: "Find the <code>title</code> of each track",
+                ru: "Найдите <code>название</code> каждого трека"
+            },
             solution: "SELECT title FROM playlist;"
         },
         {
-            description: "Find the <code>artist</code> of each track",
+            description: {
+                en: "Find the <code>artist</code> of each track",
+                ru: "Найдите <code>исполнителя</code> каждого трека"
+            },
             solution: "SELECT artist FROM playlist;"
         },
         {
-            description: "Find the <code>title</code> and <code>artist</code> of each track",
+            description: {
+                en: "Find the <code>title</code> and <code>artist</code> of each track",
+                ru: "Найдите <code>название</code> и <code>исполнителя</code> каждого трека"
+            },
             solution: "SELECT title, artist FROM playlist;"
         },
         {
-            description: "Find the <code>title</code> and year of <code>release</code> of each track",
+            description: {
+                en: "Find the <code>title</code> and year of <code>release</code> of each track",
+                ru: "Найдите <code>название</code> и <code>год выпуска</code> каждого трека"
+            },
             solution: "SELECT title, release FROM playlist;"
         },
         {
-            description: "Find <code>all</code> the information about each track",
+            description: {
+                en: "Find <code>all</code> the information about each track",
+                ru: "Найдите <code>всю</code> информацию о каждом треке"
+            },
             solution: "SELECT * FROM playlist;"
         }
     ]

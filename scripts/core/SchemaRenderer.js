@@ -1,9 +1,21 @@
 export class SchemaRenderer {
-    constructor(containerId) {
+    constructor(containerId, i18n) {
         this.container = document.getElementById(containerId);
+        this.i18n = i18n;
+        this.tables = null;
+
+        // Subscribe to language changes to re-render schema
+        if (this.i18n) {
+            this.i18n.subscribe(() => {
+                if (this.tables) {
+                    this.render(this.tables);
+                }
+            });
+        }
     }
 
     render(tables) {
+        this.tables = tables; // Store for re-rendering on language change
         this.container.innerHTML = ''; // Clear existing
 
         tables.forEach(table => {
@@ -17,22 +29,32 @@ export class SchemaRenderer {
             const tableEl = document.createElement('table');
             tableEl.className = 'schema_table';
 
-            // Parse columns from DDL if not explicitly provided in config
-            // Simple regex parser for demo purposes
-            const columns = this.parseDDL(table.ddl);
+            // Use explicit fields if available, otherwise fallback to DDL parsing
+            const columns = table.fields ? table.fields : this.parseDDL(table.ddl);
 
             columns.forEach(col => {
                 const tr = document.createElement('tr');
 
+                // Column Name (Technical) with Tooltip
                 const nameTd = document.createElement('td');
+                nameTd.className = 'mono';
+                nameTd.style.fontWeight = 'bold';
                 nameTd.textContent = col.name;
-                if (col.isPk) nameTd.innerHTML += ' 🔑';
+                if (col.type) {
+                    nameTd.title = col.type; // Technical details in tooltip
+                    if (col.type.includes('PRIMARY KEY')) nameTd.innerHTML += ' 🔑';
+                }
 
-                const typeTd = document.createElement('td');
-                typeTd.textContent = col.type;
+                // Description (Localized)
+                const descTd = document.createElement('td');
+                if (col.description && typeof col.description === 'object') {
+                    descTd.textContent = col.description[this.i18n.currentLang] || col.description.en;
+                } else {
+                    descTd.textContent = col.description || ''; // Fallback
+                }
 
                 tr.appendChild(nameTd);
-                tr.appendChild(typeTd);
+                tr.appendChild(descTd);
                 tableEl.appendChild(tr);
             });
 
@@ -51,9 +73,8 @@ export class SchemaRenderer {
             const parts = line.split(/\s+/);
             const name = parts[0];
             const type = parts.slice(1).join(' ').replace(/,$/, '');
-            const isPk = type.toUpperCase().includes('PRIMARY KEY');
 
-            return { name, type, isPk };
+            return { name, type, description: '' };
         });
     }
 }

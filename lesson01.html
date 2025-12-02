@@ -18,15 +18,16 @@
 
     <main>
         <nav>
-            <a id="proj_name" href="index.html">PgEx</a>
+            <a id="proj_name" href="index.html" data-i18n="nav.proj_name">PgEx</a>
+            <button id="langSwitcher" class="btn-sm"
+                style="margin-left: auto; background: none; border: 1px solid var(--text-color); color: var(--text-color); cursor: pointer; padding: 2px 5px; border-radius: 4px;">EN/RU</button>
         </nav>
 
         <section id="sect_theory">
-            <h1>Урок 1. Выборка: колонки.</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque quisquam labore esse doloribus, a
-                sed voluptatibus obcaecati voluptatem aperiam laborum excepturi voluptas maiores perferendis culpa
-                quibusdam repellat cum ut. Dolorum aperiam aliquam inventore placeat repudiandae culpa delectus natus
-                sapiente ratione cumque at dignissimos rerum, porro dolores adipisci suscipit vero maxime.</p>
+            <h1 data-i18n="lesson01.title"></h1>
+            <p data-i18n="lesson01.theory_p1"></p>
+            <p data-i18n="lesson01.theory_p2"></p>
+            <p data-i18n="lesson01.theory_p3"></p>
         </section>
 
         <hr>
@@ -54,7 +55,7 @@
 
             <section id="group_task">
                 <div class="container">
-                    <h3 class="section-title">Урок 1. &nbsp; Задания:</h3>
+                    <h3 class="section-title" data-i18n="lesson01.tasks_title"></h3>
                     <ol></ol>
                 </div>
                 <a class="btn disabled" href="lesson02.html" id="finishBtn">Далее</a>

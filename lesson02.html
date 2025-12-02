@@ -16,15 +16,15 @@
 
     <main>
         <nav>
-            <a id="proj_name" href="index.html">PgEx</a>
+            <a id="proj_name" href="index.html" data-i18n="nav.proj_name">PgEx</a>
+            <button id="langSwitcher" class="btn-sm"
+                style="margin-left: auto; background: none; border: 1px solid var(--text-color); color: var(--text-color); cursor: pointer; padding: 2px 5px; border-radius: 4px;">EN/RU</button>
         </nav>
 
         <section id="sect_theory">
-            <h1>Урок 2. Связи и JOIN.</h1>
-            <p>В этом уроке мы научимся связывать таблицы.</p>
-            <p>У нас есть таблица <code>authors</code> (авторы) и <code>books</code> (книги). У каждой книги есть поле
-                <code>author_id</code>, которое ссылается на <code>id</code> автора.
-            </p>
+            <h1 data-i18n="lesson02.title"></h1>
+            <p data-i18n="lesson02.theory_p1"></p>
+            <p data-i18n="lesson02.theory_p2"></p>
         </section>
 
         <hr>
@@ -52,10 +52,10 @@
 
             <section id="group_task">
                 <div class="container">
-                    <h3 class="section-title">Задания:</h3>
+                    <h3 class="section-title" data-i18n="lesson02.tasks_title"></h3>
                     <ol></ol>
                 </div>
-                <a class="btn disabled" href="index.html" id="finishBtn">Завершить</a>
+                <a class="btn disabled" href="index.html" id="finishBtn" data-i18n="lesson02.btn_finish">Завершить</a>
             </section>
         </section>
     </main>

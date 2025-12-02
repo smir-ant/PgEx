@@ -250,28 +250,35 @@
     pointer-events: none;
 }
 
-/* Syntax Highlighting Colors (Prism-like) */
+/* Syntax Highlighting Colors */
 .token.keyword {
-    color: var(--accent-color);
-    /* Blue variable */
+    color: var(--syntax-keyword);
     font-weight: bold;
 }
 
 .token.string {
-    color: #f1fa8c;
+    color: var(--syntax-string);
 }
 
 .token.number {
-    color: #bd93f9;
+    color: var(--syntax-number);
 }
 
 .token.operator {
-    color: var(--accent-color);
-    /* Blue variable */
+    color: var(--syntax-keyword);
 }
 
 .token.punctuation {
-    color: #f8f8f2;
+    color: var(--text-color);
+}
+
+.token.function {
+    color: var(--syntax-function);
+}
+
+.token.comment {
+    color: var(--syntax-comment);
+    font-style: italic;
 }
 
 /* Icons */
@@ -299,4 +306,39 @@
     padding: var(--spacing-sm) var(--spacing-md);
     /* Add spacing */
     border-top: 1px solid var(--border-color);
+}
+
+/* Schema Styles */
+.schema_block {
+    margin-bottom: 2rem;
+}
+
+.schema_block figcaption {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0px 8px;
+}
+
+.schema_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.schema_table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.schema_table tr:last-child td {
+    border-bottom: none;
+}
+
+.schema_table .mono {
+    font-family: 'Fira Code', monospace;
+    color: var(--accent-color);
+    cursor: help;
 }
