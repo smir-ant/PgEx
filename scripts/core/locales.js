@@ -53,6 +53,11 @@ export const locales = {
             next: "Next",
             finish: "Finish Tutorial",
             skip: "Skip"
+        },
+        // Solution
+        solution: {
+            btn_show: "Show Solution",
+            confirm: "Show the solution for this task?\n\nBy clicking OK, I agree that I am unable to solve this task, which is 100% correct and manually verified, and I do not want to think about the solution anymore.\nI also acknowledge that the process of thinking about the solution and attempting to compose it forms quality knowledge. I demand the answer and swear that I tried at least a little bit to solve it myself."
         }
     },
     ru: {
@@ -113,6 +118,11 @@ export const locales = {
             next: "Далее",
             finish: "Закончить обучение",
             skip: "Пропустить"
+        },
+        // Solution
+        solution: {
+            btn_show: "Показать решение",
+            confirm: "Показать решение этой задачи?\n\nНажимая ДА я соглашаюсь с тем что задание, которое 100% корректное и проверенно вручную, я просто не способен решить и не хочу ещё подумать над решением.\n\nТакже я ознакомлен с тем, что процесс обдумывания решения и попыток его составления и формирует качественные знания. И я требую ответ на задачу, и я клянусь, что хоть немного постарался и пытался решить сам."
         }
     }
 };

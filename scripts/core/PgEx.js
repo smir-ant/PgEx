@@ -130,6 +130,24 @@ export class PgEx {
             if (index === this.currentTaskIndex) li.className = 'active';
             else if (index < this.currentTaskIndex) li.className = 'completed';
             else li.className = 'disabled';
+            // Add "Show Solution" button for active task
+            if (index === this.currentTaskIndex && task.solution) {
+                const solutionBtn = document.createElement('button');
+                solutionBtn.className = 'btn-solution';
+                solutionBtn.textContent = this.i18n.t('solution.btn_show');
+                solutionBtn.title = this.i18n.t('solution.btn_show');
+
+                solutionBtn.onclick = () => {
+                    if (confirm(this.i18n.t('solution.confirm'))) {
+                        this.ui.sqlInput.value = task.solution;
+                        this.handleInput(); // Trigger input event for resizing/validation
+                        this.runQuery();
+                    }
+                };
+
+                li.appendChild(solutionBtn);
+            }
+
             this.ui.tasksList.appendChild(li);
         });
     }
