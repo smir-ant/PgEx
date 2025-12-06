@@ -18,6 +18,7 @@
     font-weight: bold;
     margin-bottom: var(--spacing-sm);
     color: var(--accent-color);
+    border-top: none;
 }
 
 /* ... existing code ... */

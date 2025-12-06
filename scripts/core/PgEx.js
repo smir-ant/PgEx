@@ -27,12 +27,16 @@ export class PgEx {
     }
 
     async init() {
-        this.setStatus("status.initializing");
-        await this.db.init(this.config.schema);
-
+        // 1. Immediate UI Render (Non-blocking)
         this.schemaRenderer.render(this.config.schema);
         this.renderTasks();
         this.i18n.updatePage();
+
+        // Initial Button State
+        if (this.ui.nextBtn) {
+            this.ui.nextBtn.textContent = this.i18n.t('lesson01.btn_run');
+            this.ui.nextBtn.classList.add('disabled');
+        }
 
         // Show help button after load
         if (this.ui.helpBtn) {
@@ -68,22 +72,27 @@ export class PgEx {
             });
         }
 
-        // Initial Query
+        // Initial Query Setup
         const initialSql = `SELECT * FROM ${this.config.schema[0].name};`;
         this.ui.sqlInput.value = initialSql;
 
         // Sync highlighting immediately
         if (window.syncHighlight) window.syncHighlight();
 
-        await this.executeQuery(initialSql);
+        // 2. Start DB Initialization (Async)
+        this.setStatus("status.initializing");
 
-        // Initial Button State
-        if (this.ui.nextBtn) {
-            this.ui.nextBtn.textContent = this.i18n.t('lesson01.btn_run');
-            this.ui.nextBtn.classList.add('disabled');
+        try {
+            await this.db.init(this.config.schema);
+
+            // 3. Run Initial Query after DB is ready
+            await this.executeQuery(initialSql);
+
+            this.setStatus("status.ready");
+        } catch (e) {
+            console.error("DB Init failed:", e);
+            this.setStatus("status.error", { msg: "DB Init Failed" });
         }
-
-        this.setStatus("status.ready");
     }
 
     setStatus(key, params = {}) {

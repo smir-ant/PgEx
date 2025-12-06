@@ -6,7 +6,8 @@
 
 body {
     font-family: var(--font-main);
-    background-color: var(--bg-color);
+    background-color: var(--bg-color-outer);
+    /* Outer frame color */
     color: var(--text-color);
     line-height: 1.6;
     min-height: 100vh;
@@ -17,10 +18,20 @@ body {
 /* Layout */
 main {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--spacing-lg);
-    width: 100%;
+    margin: 2rem auto;
+    /* Increased margin for frame effect */
+    padding: var(--spacing-xxl);
+    /* Increased padding for better readability */
+    width: 95%;
+    /* Responsive width */
     flex: 1;
+
+    /* Frame Styling */
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 32px var(--shadow-color);
+    /* Enhanced shadow */
 }
 
 nav {

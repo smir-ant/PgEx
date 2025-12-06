@@ -2,17 +2,10 @@
 const sqlInput = document.getElementById('sqlInput');
 const colored = document.getElementById('colored');
 
-function syncHighlight() {
-    if (!sqlInput || !colored) return;
+// Core highlighting logic - returns HTML string
+function highlightSQL(text) {
+    if (!text) return '';
 
-    let text = sqlInput.value;
-
-    // Ensure final newline is handled for scrolling
-    if (text[text.length - 1] === "\n") {
-        text += " ";
-    }
-
-    // Custom PostgreSQL syntax highlighter
     // Step 1: Find all SELECT column list zones (before escaping HTML)
     const selectZones = [];
     let i = 0;
@@ -53,10 +46,20 @@ function syncHighlight() {
     }
 
     // Step 2: Escape HTML
-    text = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-    // Step 3: Apply highlighting in order
-
+    // We need to escape carefully to not break the tokenization logic if we were to tokenize first.
+    // But here we tokenize the raw text and then escape the tokens content.
+    // Actually, the original logic escaped the whole text first? 
+    // Wait, the original logic did: text = text.replace... AND THEN tokenized.
+    // But tokenizing escaped text is tricky if entities look like other things.
+    // Let's stick to the original flow: Escape -> Tokenize (but careful with entities).
+    // Original: text = text.replace(/&/g, "&amp;")...
+    // But wait, if I have "a < b", it becomes "a &lt; b". Tokenizer sees "&lt;" as maybe operator or identifier?
+    // The original regex was: /(--[^\n]*|\/\*[\s\S]*?\*\/|'(?:[^']|'')*'|\b\w+\b|\d+\.?\d*|[^\w\s]|\s+)/g
+    // [^\w\s] matches & and ; so &lt; would be tokens "&", "lt", ";"
+    // This breaks keywords if they were escaped? No, keywords are words.
+    // But < is an operator. &lt; is not.
+    // Let's refine: Tokenize RAW text, then escape content when wrapping.
+    
     // All PostgreSQL keywords
     const keywordList = ['SELECT', 'FROM', 'WHERE', 'JOIN', 'INNER', 'LEFT', 'RIGHT', 'FULL', 'OUTER', 'CROSS', 'ON', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'ILIKE', 'BETWEEN', 'IS', 'NULL', 'AS', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'UNION', 'INTERSECT', 'EXCEPT', 'ALL', 'DISTINCT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE', 'CREATE', 'TABLE', 'ALTER', 'DROP', 'PRIMARY', 'KEY', 'FOREIGN', 'REFERENCES', 'INDEX', 'UNIQUE', 'CHECK', 'DEFAULT', 'CASCADE', 'CONSTRAINT', 'VIEW', 'WITH', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'CAST', 'EXISTS', 'ANY', 'SOME', 'SERIAL', 'BIGSERIAL', 'INTEGER', 'BIGINT', 'SMALLINT', 'DECIMAL', 'NUMERIC', 'REAL', 'DOUBLE', 'PRECISION', 'VARCHAR', 'CHAR', 'TEXT', 'BOOLEAN', 'DATE', 'TIME', 'TIMESTAMP', 'INTERVAL', 'ARRAY', 'JSON', 'JSONB', 'UUID', 'BYTEA', 'RETURNING', 'CONFLICT', 'DO', 'NOTHING', 'EXCLUDED', 'WINDOW', 'OVER', 'PARTITION', 'ROWS', 'RANGE', 'UNBOUNDED', 'PRECEDING', 'FOLLOWING', 'CURRENT', 'ROW', 'GRANT', 'REVOKE', 'ROLE', 'USER', 'POLICY', 'SECURITY', 'DEFINER', 'INVOKER', 'VOLATILE', 'STABLE', 'IMMUTABLE', 'STRICT', 'LEAKPROOF', 'PARALLEL', 'SAFE', 'RESTRICTED', 'UNSAFE'];
 
@@ -69,8 +72,12 @@ function syncHighlight() {
     let result = '';
     let pos = 0;
 
-    // Tokenize and highlight
+    // Tokenize raw text
     const tokens = text.match(/(--[^\n]*|\/\*[\s\S]*?\*\/|'(?:[^']|'')*'|\b\w+\b|\d+\.?\d*|[^\w\s]|\s+)/g) || [];
+
+    function escapeHtml(str) {
+        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
 
     tokens.forEach(token => {
         const isComment = /^(--|\/\*)/.test(token);
@@ -81,28 +88,56 @@ function syncHighlight() {
         const isFunction = functions.some(fn => fn.toUpperCase() === token.toUpperCase());
         const inSelectZone = isInSelectZone(pos);
 
+        const escapedToken = escapeHtml(token);
+
         if (isComment) {
-            result += `<span class="token comment">${token}</span>`;
+            result += `<span class="token comment">${escapedToken}</span>`;
         } else if (isString) {
-            result += `<span class="token string">${token}</span>`;
+            result += `<span class="token string">${escapedToken}</span>`;
         } else if (isNumber) {
-            result += `<span class="token number">${token}</span>`;
+            result += `<span class="token number">${escapedToken}</span>`;
         } else if (isFunction) {
-            result += `<span class="token function">${token}</span>`;
+            result += `<span class="token function">${escapedToken}</span>`;
         } else if (isKeyword && (!inSelectZone || isSelectKeyword)) {
-            result += `<span class="token keyword">${token}</span>`;
+            result += `<span class="token keyword">${escapedToken}</span>`;
         } else {
-            result += token;
+            result += escapedToken;
         }
 
         pos += token.length;
     });
 
-    colored.innerHTML = result;
+    return result;
+}
+
+function syncHighlight() {
+    if (!sqlInput || !colored) return;
+
+    let text = sqlInput.value;
+
+    // Ensure final newline is handled for scrolling
+    if (text[text.length - 1] === "\n") {
+        text += " ";
+    }
+
+    colored.innerHTML = highlightSQL(text);
 
     // Sync scroll
     colored.scrollTop = sqlInput.scrollTop;
     colored.scrollLeft = sqlInput.scrollLeft;
+}
+
+// Apply highlighting to static code blocks (Theory sections)
+function highlightStaticBlocks() {
+    const codeBlocks = document.querySelectorAll('.code-example code');
+    codeBlocks.forEach(block => {
+        // Get raw text, trim only if needed, but usually we want to preserve format
+        // But innerText might miss newlines in some browsers if styling is weird, but usually ok for <pre><code>
+        const text = block.textContent; 
+        block.innerHTML = highlightSQL(text);
+        // Ensure class matches for styling
+        block.className = 'language-sql'; 
+    });
 }
 
 if (sqlInput) {
@@ -117,5 +152,10 @@ if (sqlInput) {
     syncHighlight();
 }
 
+// Run static highlighting on load
+document.addEventListener('DOMContentLoaded', highlightStaticBlocks);
+
 // Export for external use if needed
 window.syncHighlight = syncHighlight;
+window.highlightSQL = highlightSQL;
+

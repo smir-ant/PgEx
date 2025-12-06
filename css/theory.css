@@ -130,6 +130,44 @@ details {
     }
 }
 
+/* ----------- Code Examples ----------- */
+.code-example {
+    margin: 1.5rem auto;
+    width: fit-content;
+    max-width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background-color: var(--code-bg);
+
+    & .code-content, pre {
+        padding: 1rem 1.25rem;
+        overflow-x: auto;
+        background-color: var(--code-bg);
+        font-family: var(--font-mono);
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: var(--text-color);
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    & .code-caption {
+        width: 100%;
+        border-top: solid 1px var(--border-color);
+        text-align: center;
+        background-color: var(--card-bg);
+
+        & label {
+            color: #888;
+            display: block;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+    }
+}
+
 /* ----------- подсказки (?) ----------- */
 .tip {
     font-size: 0.85rem;

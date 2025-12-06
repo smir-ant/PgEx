@@ -68,9 +68,8 @@
       }
     }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
-    <script src="scripts/fillTableHtml.js"></script>
+
+    <script src="scripts/fillTableHtml.js" defer></script>
 
     <script type="module">
         import { PgEx } from './scripts/core/PgEx.js';
@@ -80,7 +79,7 @@
         new PgEx(lessonConfig);
     </script>
 
-    <script src="scripts/highlightSQL.js"></script>
+    <script src="scripts/highlightSQL.js" defer></script>
 </body>
 
 </html>

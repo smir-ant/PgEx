@@ -5,9 +5,11 @@ export const locales = {
         },
         lesson01: {
             title: "Lesson 1. Selection: Columns.",
-            theory_p1: "The <code>SELECT</code> statement is used to retrieve data from a database. It is the most common command in SQL.",
-            theory_p2: "To select specific columns, list their names separated by commas after the <code>SELECT</code> keyword. For example: <code>SELECT title, artist FROM playlist;</code>",
-            theory_p3: "If you want to retrieve all columns from a table, use the asterisk symbol (<code>*</code>). For example: <code>SELECT * FROM playlist;</code>",
+            theory_p1: "The most common command for working with databases is <code>SELECT</code>. It's simply an instruction that specifies what data we're looking for, where to find it in the database, and, if needed, how to transform it before returning. However, let's start with the basics - simply displaying everything or showing specific columns.",
+            theory_p2: "The result will be a fragment of the table with the columns we requested.",
+            theory_p3: "If we want to get absolutely all columns, we can use the asterisk (<code>*</code>) to avoid listing all column names.",
+            code_example1_caption: "Select query for specific columns",
+            code_example2_caption: "Select query for all columns",
             tasks_title: "Lesson 1. Tasks:",
             btn_next: "Next",
             btn_run: "Run Tasks"
@@ -66,9 +68,11 @@ export const locales = {
         },
         lesson01: {
             title: "Урок 1. Выборка: колонки.",
-            theory_p1: "Команда <code>SELECT</code> используется для выборки данных из базы данных. Это самая частая команда в SQL.",
-            theory_p2: "Чтобы выбрать конкретные колонки, перечислите их названия через запятую после ключевого слова <code>SELECT</code>. Например: <code>SELECT title, artist FROM playlist;</code>",
-            theory_p3: "Если вы хотите получить все колонки из таблицы, используйте символ звёздочки (<code>*</code>). Например: <code>SELECT * FROM playlist;</code>",
+            theory_p1: "Самая частая команда для работы с базой данных это <code>SELECT</code>. Это просто инструкция, в которой указывается, какие данные мы ищем, где их найти в базе данных и, при необходимости, как преобразовать их перед возвращением. Однако начнем с самых основ, а именно просто выводить всё или показать определенные колонки.",
+            theory_p2: "Результатом будет фрагмент таблицы с теми столбцами что мы запросили.",
+            theory_p3: "Если мы хотим получить абсолютно все столбцы, то мы можем использовать звёздочку (<code>*</code>), чтобы не перечислять имена всех столбцов.",
+            code_example1_caption: "Запрос для выборки конкретных колонок",
+            code_example2_caption: "Запрос для выборки всех колонок",
             tasks_title: "Урок 1. Задания:",
             btn_next: "Далее",
             btn_run: "Выполни задания"
