@@ -117,6 +117,10 @@ details {
         /* открываемый div сдвинут вверх маржином => он накрывает summary(он остаётся кликабельным, но только по тексту, не по всему блоку). поэтому отключаем диву взаимодействие с мышкой  */
         pointer-events: none;
 
+        &>* {
+            pointer-events: auto;
+        }
+
         & .tip {
             /* но разрешаем подсказкам реагировать с мышкой */
             pointer-events: all;
@@ -140,7 +144,8 @@ details {
     overflow: hidden;
     background-color: var(--code-bg);
 
-    & .code-content, pre {
+    & .code-content,
+    pre {
         padding: 1rem 1.25rem;
         overflow-x: auto;
         background-color: var(--code-bg);

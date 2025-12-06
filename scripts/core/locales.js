@@ -12,7 +12,17 @@ export const locales = {
             code_example2_caption: "Select query for all columns",
             tasks_title: "Lesson 1. Tasks:",
             btn_next: "Next",
-            btn_run: "Run Tasks"
+            btn_run: "Run Tasks",
+            faq: {
+                q1: "Can column names contain spaces?",
+                a1: "Yes, they can! To do this, you need to wrap the column name in double quotes.<div class='code-example'><pre><code>SELECT \"my column\" FROM table;</code></pre></div>",
+                q2: "Can column names be in Russian or Chinese?",
+                a2: "Yes! PostgreSQL fully supports Unicode. But again, it's better to wrap them in double quotes.<div class='code-example'><pre><code>SELECT \"название\", \"名字\" FROM table;</code></pre></div>",
+                q3: "How to write comments?",
+                a3: "Single-line with <code>--</code>, multi-line with <code>/* */</code>.<div class='code-example'><pre><code>SELECT * FROM table; -- This is a comment\n\n/* This is a\n   multi-line comment */</code></pre></div>",
+                q4: "Is SQL case-sensitive?",
+                a4: "Keywords (SELECT, FROM) are not case-sensitive. Identifiers are lowercased unless quoted.<div class='code-example'><pre><code>SELECT Name;   -- becomes: select name\nSELECT \"Name\"; -- remains: Name</code></pre></div>"
+            }
         },
         lesson02: {
             title: "Lesson 2. Relations and JOIN.",
@@ -75,7 +85,17 @@ export const locales = {
             code_example2_caption: "Запрос для выборки всех колонок",
             tasks_title: "Урок 1. Задания:",
             btn_next: "Далее",
-            btn_run: "Выполни задания"
+            btn_run: "Выполни задания",
+            faq: {
+                q1: "Могут ли в названии столбцов быть пробелы?",
+                a1: "Да, могут! Для этого нужно писать название колонок в двойных кавычках.<div class='code-example'><pre><code>SELECT \"my column\" FROM table;</code></pre></div>",
+                q2: "Могут ли названия колонок быть на русском или китайском?",
+                a2: "Да! PostgreSQL полностью поддерживает Unicode.<div class='code-example'><pre><code>SELECT \"название\", \"名字\" FROM table;</code></pre></div>",
+                q3: "Как писать комментарии?",
+                a3: "Однострочные через <code>--</code>, многострочные через <code>/* */</code>.<div class='code-example'><pre><code>SELECT * FROM table; -- Это комментарий\n\n/* Это многострочный\n   комментарий */</code></pre></div>",
+                q4: "Чувствителен ли SQL к регистру?",
+                a4: "Ключевые слова (SELECT) — нет. Идентификаторы без кавычек приводятся к нижнему регистру.<div class='code-example'><pre><code>SELECT Name;   -- станет: select name\nSELECT \"Name\"; -- останется: Name</code></pre></div>"
+            }
         },
         lesson02: {
             title: "Урок 2. Связи и JOIN.",
