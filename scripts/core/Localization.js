@@ -56,6 +56,9 @@ export class Localization {
 
         // Update html lang attribute
         document.documentElement.lang = this.currentLang;
+
+        // Dispatch event for other scripts (e.g. highlighter)
+        document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: this.currentLang } }));
     }
 
     subscribe(callback) {

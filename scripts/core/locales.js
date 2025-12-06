@@ -21,7 +21,7 @@ export const locales = {
                 q3: "How to write comments?",
                 a3: "Single-line with <code>--</code>, multi-line with <code>/* */</code>.<div class='code-example'><pre><code>SELECT * FROM table; -- This is a comment\n\n/* This is a\n   multi-line comment */</code></pre></div>",
                 q4: "Is SQL case-sensitive?",
-                a4: "Keywords (SELECT, FROM) are not case-sensitive. Identifiers are lowercased unless quoted.<div class='code-example'><pre><code>SELECT Name;   -- becomes: select name\nSELECT \"Name\"; -- remains: Name</code></pre></div>"
+                a4: "Keywords (SELECT, FROM) are not case-sensitive. Identifiers are lowercased unless quoted.<div class='code-example'><pre><code>select * from table; -- same as: SELECT * FROM TABLE\nSELECT Name;         -- becomes: select name\nSELECT \"Name\";       -- remains: Name</code></pre></div>"
             }
         },
         lesson02: {
@@ -94,7 +94,7 @@ export const locales = {
                 q3: "Как писать комментарии?",
                 a3: "Однострочные через <code>--</code>, многострочные через <code>/* */</code>.<div class='code-example'><pre><code>SELECT * FROM table; -- Это комментарий\n\n/* Это многострочный\n   комментарий */</code></pre></div>",
                 q4: "Чувствителен ли SQL к регистру?",
-                a4: "Ключевые слова (SELECT) — нет. Идентификаторы без кавычек приводятся к нижнему регистру.<div class='code-example'><pre><code>SELECT Name;   -- станет: select name\nSELECT \"Name\"; -- останется: Name</code></pre></div>"
+                a4: "Ключевые слова (SELECT) — нет. Идентификаторы без кавычек приводятся к нижнему регистру.<div class='code-example'><pre><code>select * from table; -- то же самое что: SELECT * FROM TABLE\nSELECT Name;         -- станет: select name\nSELECT \"Name\";       -- останется: Name</code></pre></div>"
             }
         },
         lesson02: {

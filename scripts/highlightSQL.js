@@ -315,6 +315,9 @@ if (sqlInput) {
 // Run static highlighting on load
 document.addEventListener('DOMContentLoaded', highlightStaticBlocks);
 
+// Re-run highlighting when language changes (content is replaced)
+document.addEventListener('languageChanged', highlightStaticBlocks);
+
 // Export for external use if needed
 window.syncHighlight = syncHighlight;
 window.highlightSQL = highlightSQL;
