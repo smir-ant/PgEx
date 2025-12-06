@@ -19,9 +19,9 @@ export const locales = {
                 q2: "Can column names be in Russian or Chinese?",
                 a2: "Yes! PostgreSQL fully supports Unicode. But again, it's better to wrap them in double quotes.<div class='code-example'><pre><code>SELECT \"название\", \"名字\" FROM table;</code></pre></div>",
                 q3: "How to write comments?",
-                a3: "Single-line with <code>--</code>, multi-line with <code>/* */</code>.<div class='code-example'><pre><code>SELECT * FROM table; -- This is a comment\n\n/* This is a\n   multi-line comment */</code></pre></div>",
+                a3: "Comments are non-executable fragments. You can write anything there. They exist in every programming language, and SQL is no exception!<br><br>Single-line with <code>--</code>, multi-line with <code>/* */</code>.<div class='code-example'><pre><code>SELECT * FROM table; -- This is a comment\n\n/* This is a\n   multi-line comment */</code></pre></div>",
                 q4: "Is SQL case-sensitive?",
-                a4: "Keywords (SELECT, FROM) are not case-sensitive. Identifiers are lowercased unless quoted.<div class='code-example'><pre><code>select * from table; -- same as: SELECT * FROM TABLE\nSELECT Name;         -- becomes: select name\nSELECT \"Name\";       -- remains: Name</code></pre></div>"
+                a4: "Keywords are not case-sensitive. Identifiers are lowercased unless quoted.<div class='code-example'><pre><code>select * from table; -- same as: SELECT * FROM TABLE\nSELECT Name;         -- selects name, NAME, Name column\nSELECT \"Name\";       -- selects strictly \"Name\" (not name or NAME)</code></pre></div>"
             }
         },
         lesson02: {
@@ -43,10 +43,17 @@ export const locales = {
             op_not_between: "Value is NOT within range",
             theory_examples: "Here are some examples:",
             tasks_title: "Tasks",
-            task1: "Find all documents in the Finance department.",
-            task2: "Find documents with amount greater than 50000.",
-            task3: "Find all documents where \"document type\" is 'Invoice'.",
-            task4: "Find documents with amount BETWEEN 10000 AND 50000."
+            task1: "Find all documents in the <code>Finance</code> department.",
+            task2: "Find all documents where department is NOT <code>'Sales'</code>.",
+            task3: "Find documents with <code>amount</code> greater than 50000.",
+            task4: "Find documents with <code>amount</code> less than 10000.",
+            task5: "Find documents in <code>Finance</code> department AND <code>amount</code> > 50000.",
+            task6: "Find documents in <code>Sales</code> OR <code>HR</code> department.",
+            task7: "Find documents where <code>\"document type\"</code> IN ('Invoice', 'Contract').",
+            task8: "Find documents where department NOT IN ('Sales', 'HR').",
+            task9: "Find documents in <code>Finance</code> OR (<code>Legal</code> AND amount > 40000).",
+            task10: "Find documents with amount BETWEEN 10000 AND 50000.",
+            task11: "Find documents with amount NOT BETWEEN 5000 AND 100000."
         },
         lesson03: {
             title: "Lesson 3: Advanced Filtering",
@@ -131,9 +138,9 @@ export const locales = {
                 q2: "Могут ли названия колонок быть на русском или китайском?",
                 a2: "Да! PostgreSQL полностью поддерживает Unicode.<div class='code-example'><pre><code>SELECT \"название\", \"名字\" FROM table;</code></pre></div>",
                 q3: "Как писать комментарии?",
-                a3: "Однострочные через <code>--</code>, многострочные через <code>/* */</code>.<div class='code-example'><pre><code>SELECT * FROM table; -- Это комментарий\n\n/* Это многострочный\n   комментарий */</code></pre></div>",
+                a3: "Комментарии — это невыполняемый фрагмент. Там может быть написано что угодно. Они есть в любом языке, и SQL не исключение!<br><br>Однострочные через <code>--</code>, многострочные через <code>/* */</code>.<div class='code-example'><pre><code>SELECT * FROM table; -- Это комментарий\n\n/* Это многострочный\n   комментарий */</code></pre></div>",
                 q4: "Чувствителен ли SQL к регистру?",
-                a4: "Ключевые слова (SELECT) — нет. Идентификаторы без кавычек приводятся к нижнему регистру.<div class='code-example'><pre><code>select * from table; -- то же самое что: SELECT * FROM TABLE\nSELECT Name;         -- станет: select name\nSELECT \"Name\";       -- останется: Name</code></pre></div>"
+                a4: "Ключевые слова — нет. Идентификаторы без кавычек приводятся к нижнему регистру.<div class='code-example'><pre><code>select * from table; -- то же самое что: SELECT * FROM TABLE\nSELECT Name;         -- выберет и name, и NAME, и Name\nSELECT \"Name\";       -- выберет строго \"Name\" (name или NAME не попадут)</code></pre></div>"
             }
         },
         lesson02: {
@@ -155,10 +162,17 @@ export const locales = {
             op_not_between: "Значение НЕ внутри диапазона",
             theory_examples: "Вот несколько примеров:",
             tasks_title: "Задания",
-            task1: "Найти все документы отдела Finance.",
-            task2: "Найти документы с суммой больше 50000.",
-            task3: "Найти все документы, где \"document type\" равен 'Invoice'.",
-            task4: "Найти документы с суммой BETWEEN 10000 AND 50000."
+            task1: "Найти все документы отдела <code>Finance</code>.",
+            task2: "Найти все документы, где department НЕ равен <code>'Sales'</code>.",
+            task3: "Найти документы с <code>amount</code> больше 50000.",
+            task4: "Найти документы с <code>amount</code> меньше 10000.",
+            task5: "Найти документы в отделе <code>Finance</code> И <code>amount</code> > 50000.",
+            task6: "Найти документы в отделе <code>Sales</code> ИЛИ <code>HR</code>.",
+            task7: "Найти документы, где <code>\"document type\"</code> IN ('Invoice', 'Contract').",
+            task8: "Найти документы, где department NOT IN ('Sales', 'HR').",
+            task9: "Найти документы в <code>Finance</code> ИЛИ (<code>Legal</code> И amount > 40000).",
+            task10: "Найти документы с amount BETWEEN 10000 AND 50000.",
+            task11: "Найти документы с amount NOT BETWEEN 5000 AND 100000."
         },
         lesson03: {
             title: "Урок 3: Продвинутая фильтрация",

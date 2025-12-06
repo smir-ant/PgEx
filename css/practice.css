@@ -188,6 +188,8 @@
 #group_task ol {
     list-style-position: inside;
     padding-left: 0;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 #group_task li {
