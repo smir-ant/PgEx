@@ -210,7 +210,7 @@ function syncHighlight() {
 
 // Apply highlighting to static code blocks (Theory sections)
 function highlightStaticBlocks() {
-    const codeBlocks = document.querySelectorAll('.code-example code');
+    const codeBlocks = document.querySelectorAll('.code-example code, .theory-table code');
     codeBlocks.forEach(block => {
         // Get raw text, trim only if needed, but usually we want to preserve format
         // But innerText might miss newlines in some browsers if styling is weird, but usually ok for <pre><code>

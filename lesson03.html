@@ -26,27 +26,30 @@
         </nav>
 
         <section id="sect_theory">
-            <h1 data-i18n="lesson01.title"></h1>
-            <p data-i18n="lesson01.theory_p1"></p>
+            <h2 data-i18n="lesson03.title"></h2>
+
+            <p data-i18n="lesson03.theory_intro"></p>
 
             <div class="code-example">
-                <pre><code class="language-sql">SELECT column, another_column, …
-FROM mytable;</code></pre>
+                <pre><code>SELECT * FROM employees WHERE department != 'HR';</code></pre>
                 <div class="code-caption">
-                    <label data-i18n="lesson01.code_example1_caption"></label>
+                    <label data-i18n="lesson03.code_example1_caption"></label>
                 </div>
             </div>
 
-            <p data-i18n="lesson01.theory_p2"></p>
-            <p data-i18n="lesson01.theory_p3"></p>
+            <p data-i18n="lesson03.theory_like"></p>
 
             <div class="code-example">
-                <pre><code class="language-sql">SELECT *
-FROM mytable;</code></pre>
-                <div class="code-caption">
-                    <label data-i18n="lesson01.code_example2_caption"></label>
-                </div>
+                <pre><code>SELECT * FROM employees WHERE name LIKE 'A%'; -- Starts with A
+SELECT * FROM employees WHERE code LIKE '__-123'; -- Two chars, then -123</code></pre>
             </div>
+
+            <p data-i18n="lesson03.theory_not_in"></p>
+
+            <div class="code-example">
+                <pre><code>SELECT * FROM employees WHERE id NOT IN (1, 2, 3);</code></pre>
+            </div>
+
         </section>
 
         <hr>
@@ -74,16 +77,40 @@ FROM mytable;</code></pre>
 
             <section id="group_task">
                 <div class="container">
-                    <h3 class="section-title" data-i18n="lesson01.tasks_title"></h3>
+                    <h3 class="section-title" data-i18n="lesson03.tasks_title"></h3>
                     <ol></ol>
                 </div>
-                <a class="btn disabled" href="lesson02.html" id="finishBtn">Далее</a>
+                <a class="btn disabled" href="lesson07.html" id="finishBtn">Далее</a>
             </section>
         </section>
 
         <hr>
 
         <section id="sect_faq">
+            <details>
+                <summary><span data-i18n="lesson01.faq.q1"></span></summary>
+                <div>
+                    <p data-i18n="lesson01.faq.a1"></p>
+                </div>
+            </details>
+            <details>
+                <summary><span data-i18n="lesson01.faq.q2"></span></summary>
+                <div>
+                    <p data-i18n="lesson01.faq.a2"></p>
+                </div>
+            </details>
+            <details>
+                <summary><span data-i18n="lesson01.faq.q3"></span></summary>
+                <div>
+                    <p data-i18n="lesson01.faq.a3"></p>
+                </div>
+            </details>
+            <details>
+                <summary><span data-i18n="lesson01.faq.q4"></span></summary>
+                <div>
+                    <p data-i18n="lesson01.faq.a4"></p>
+                </div>
+            </details>
         </section>
     </main>
 
@@ -102,7 +129,7 @@ FROM mytable;</code></pre>
 
     <script type="module">
         import { PgEx } from './scripts/core/PgEx.js';
-        import lessonConfig from './scripts/lessons/lesson01.js';
+        import lessonConfig from './scripts/lessons/lesson03.js';
 
         // Initialize the engine
         new PgEx(lessonConfig);

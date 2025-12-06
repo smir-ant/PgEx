@@ -1,66 +1,75 @@
-export default {
-    title: "Lesson 2: Relationships & JOINs",
+const lesson02 = {
+    lessonId: 'lesson02',
     schema: [
         {
-            name: "authors",
+            name: "documents",
             fields: [
                 { name: "id", type: "SERIAL PRIMARY KEY", description: { en: "ID", ru: "ID" } },
-                { name: "name", type: "VARCHAR(255) NOT NULL", description: { en: "Name of author", ru: "Имя автора" } }
+                { name: "title", type: "VARCHAR(200)", description: { en: "Document Title", ru: "Название документа" } },
+                { name: "document type", type: "VARCHAR(100)", description: { en: "Type (with space!)", ru: "Тип (с пробелом!)" } },
+                { name: "department", type: "VARCHAR(100)", description: { en: "Department", ru: "Отдел" } },
+                { name: "amount", type: "DECIMAL(10,2)", description: { en: "Amount", ru: "Сумма" } }
             ],
-            ddl: `CREATE TABLE authors (
-                id SERIAL PRIMARY KEY, 
-                name VARCHAR(255) NOT NULL
+            ddl: `CREATE TABLE documents (
+                id SERIAL PRIMARY KEY,
+                title VARCHAR(200),
+                "document type" VARCHAR(100),
+                department VARCHAR(100),
+                amount DECIMAL(10,2)
             );`,
-            dml: `INSERT INTO authors (name) VALUES
-                ('J.K. Rowling'),
-                ('George R.R. Martin'),
-                ('J.R.R. Tolkien'),
-                ('Isaac Asimov');`
-        },
-        {
-            name: "books",
-            fields: [
-                { name: "id", type: "SERIAL PRIMARY KEY", description: { en: "ID", ru: "ID" } },
-                { name: "title", type: "VARCHAR(255) NOT NULL", description: { en: "Title of book", ru: "Название книги" } },
-                { name: "author_id", type: "INT", description: { en: "ID of author", ru: "ID автора" } },
-                { name: "year", type: "INT", description: { en: "Year of publishing", ru: "Год издания" } }
-            ],
-            ddl: `CREATE TABLE books (
-                id SERIAL PRIMARY KEY, 
-                title VARCHAR(255) NOT NULL,
-                author_id INT,
-                year INT
-            );`,
-            dml: `INSERT INTO books (title, author_id, year) VALUES
-                ('Harry Potter and the Philosopher''s Stone', 1, 1997),
-                ('A Game of Thrones', 2, 1996),
-                ('The Hobbit', 3, 1937),
-                ('Foundation', 4, 1951),
-                ('Harry Potter and the Chamber of Secrets', 1, 1998),
-                ('The Fellowship of the Ring', 3, 1954);`
+            dml: `INSERT INTO documents (title, "document type", department, amount) VALUES
+            ('Q1 Report', 'Report', 'Finance', 15000.00),
+            ('Invoice #1001', 'Invoice', 'Sales', 8500.50),
+            ('Budget 2024', 'Report', 'Finance', 120000.00),
+            ('Contract ABC', 'Contract', 'Legal', 45000.00),
+            ('Invoice #1002', 'Invoice', 'Sales', 3200.00),
+            ('Salary March', 'Payroll', 'HR', 85000.00),
+            ('Q2 Report', 'Report', 'Finance', 18000.00),
+            ('Invoice #1003', 'Invoice', 'Sales', 12000.00);`
         }
     ],
     tasks: [
         {
-            description: {
-                en: "Select all book titles",
-                ru: "Выберите <code>названия</code> всех книг"
-            },
-            solution: "SELECT title FROM books;"
+            id: 'task1',
+            descriptionI18n: 'lesson02.task1',
+            check: (results) => {
+                // Find all documents in Finance department (Q1 Report, Budget 2024, Q2 Report)
+                if (!results || results.length === 0) return false;
+                return results.length === 3 && results.every(r => r.department === 'Finance');
+            }
         },
         {
-            description: {
-                en: "Select all books published before 1960",
-                ru: "Выберите все книги, изданные до 1960 года"
-            },
-            solution: "SELECT * FROM books WHERE year < 1960;"
+            id: 'task2',
+            descriptionI18n: 'lesson02.task2',
+            check: (results) => {
+                // Find documents with amount > 50000 (Budget 2024, Salary March)
+                if (!results || results.length === 0) return false;
+                return results.length === 2 && results.every(r => parseFloat(r.amount) > 50000);
+            }
         },
         {
-            description: {
-                en: "Use a <code>JOIN</code> to show book title and author name",
-                ru: "Используйте <code>JOIN</code>, чтобы показать <code>название</code> книги и <code>имя</code> автора"
-            },
-            solution: "SELECT books.title, authors.name FROM books JOIN authors ON books.author_id = authors.id;"
+            id: 'task3',
+            descriptionI18n: 'lesson02.task3',
+            check: (results) => {
+                // Find all Invoices (3 invoices)
+                if (!results || results.length === 0) return false;
+                return results.length === 3 && results.every(r => r['document type'] === 'Invoice');
+            }
+        },
+        {
+            id: 'task4',
+            descriptionI18n: 'lesson02.task4',
+            check: (results) => {
+                // Find documents with amount BETWEEN 10000 AND 50000 (Q1 Report 15000, Contract ABC 45000, Q2 Report 18000, Invoice #1003 12000)
+                if (!results || results.length === 0) return false;
+                return results.length === 4 && results.every(r => {
+                    const amt = parseFloat(r.amount);
+                    return amt >= 10000 && amt <= 50000;
+                });
+            }
         }
-    ]
+    ],
+    nextLesson: 'lesson03.html'
 };
+
+export default lesson02;

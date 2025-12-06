@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PgEx 02</title>
+    <title>PgEx 01</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/theory.css">
     <link rel="stylesheet" href="css/practice.css">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+
 </head>
 
 <body>
+
 
     <main>
         <nav>
@@ -23,9 +26,101 @@
         </nav>
 
         <section id="sect_theory">
-            <h1 data-i18n="lesson02.title"></h1>
-            <p data-i18n="lesson02.theory_p1"></p>
-            <p data-i18n="lesson02.theory_p2"></p>
+            <h2 data-i18n="lesson02.title"></h2>
+
+            <p data-i18n="lesson02.theory_intro"></p>
+
+            <div class="code-example">
+                <pre><code>SELECT column, another_column, …
+FROM mytable
+WHERE condition
+    AND/OR another_condition
+    AND/OR …;</code></pre>
+                <div class="code-caption">
+                    <label data-i18n="lesson02.code_syntax_caption"></label>
+                </div>
+            </div>
+
+            <h3 data-i18n="lesson02.operators_title"></h3>
+
+            <table class="theory-table">
+                <thead>
+                    <tr>
+                        <th data-i18n="lesson02.table_operator"></th>
+                        <th data-i18n="lesson02.table_description"></th>
+                        <th data-i18n="lesson02.table_example"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>=</code></td>
+                        <td data-i18n="lesson02.op_eq"></td>
+                        <td><code>salary = 50000</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>!=</code> / <code>&lt;&gt;</code></td>
+                        <td data-i18n="lesson02.op_neq"></td>
+                        <td><code>department != 'HR'</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></td>
+                        <td data-i18n="lesson02.op_compare"></td>
+                        <td><code>salary > 50000</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>AND</code></td>
+                        <td data-i18n="lesson02.op_and"></td>
+                        <td><code>salary > 50000 AND department = 'IT'</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>OR</code></td>
+                        <td data-i18n="lesson02.op_or"></td>
+                        <td><code>department = 'IT' OR department = 'HR'</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>IN (…)</code></td>
+                        <td data-i18n="lesson02.op_in"></td>
+                        <td><code>id IN (1, 2, 3)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>NOT IN (…)</code></td>
+                        <td data-i18n="lesson02.op_not_in"></td>
+                        <td><code>id NOT IN (1, 2, 3)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>BETWEEN … AND …</code></td>
+                        <td data-i18n="lesson02.op_between"></td>
+                        <td><code>salary BETWEEN 40000 AND 60000</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>NOT BETWEEN … AND …</code></td>
+                        <td data-i18n="lesson02.op_not_between"></td>
+                        <td><code>salary NOT BETWEEN 40000 AND 60000</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p data-i18n="lesson02.theory_examples"></p>
+
+            <div class="code-example">
+                <pre><code>-- Фильтрация по одному условию
+SELECT * FROM employees WHERE salary > 50000;
+
+-- Комбинация условий с AND
+SELECT * FROM employees WHERE department = 'IT' AND salary > 60000;
+
+-- Комбинация условий с OR
+SELECT * FROM employees WHERE department = 'IT' OR department = 'HR';
+
+-- Использование IN и NOT IN
+SELECT * FROM employees WHERE id IN (1, 2, 3);
+SELECT * FROM employees WHERE id NOT IN (1, 2, 3);
+
+-- Диапазоны с BETWEEN
+SELECT * FROM employees WHERE salary BETWEEN 40000 AND 60000;
+SELECT * FROM employees WHERE salary NOT BETWEEN 40000 AND 60000;</code></pre>
+            </div>
+
         </section>
 
         <hr>
@@ -56,8 +151,37 @@
                     <h3 class="section-title" data-i18n="lesson02.tasks_title"></h3>
                     <ol></ol>
                 </div>
-                <a class="btn disabled" href="index.html" id="finishBtn" data-i18n="lesson02.btn_finish">Завершить</a>
+                <a class="btn disabled" href="lesson03.html" id="finishBtn">Далее</a>
             </section>
+        </section>
+
+        <hr>
+
+        <section id="sect_faq">
+            <details>
+                <summary><span data-i18n="lesson01.faq.q1"></span></summary>
+                <div>
+                    <p data-i18n="lesson01.faq.a1"></p>
+                </div>
+            </details>
+            <details>
+                <summary><span data-i18n="lesson01.faq.q2"></span></summary>
+                <div>
+                    <p data-i18n="lesson01.faq.a2"></p>
+                </div>
+            </details>
+            <details>
+                <summary><span data-i18n="lesson01.faq.q3"></span></summary>
+                <div>
+                    <p data-i18n="lesson01.faq.a3"></p>
+                </div>
+            </details>
+            <details>
+                <summary><span data-i18n="lesson01.faq.q4"></span></summary>
+                <div>
+                    <p data-i18n="lesson01.faq.a4"></p>
+                </div>
+            </details>
         </section>
     </main>
 
@@ -69,7 +193,10 @@
     }
     </script>
 
+    <script src="scripts/isRightAns.js" defer></script>
     <script src="scripts/fillTableHtml.js" defer></script>
+    <script src="scripts/status.js" defer></script>
+    <script src="scripts/nextTask.js" defer></script>
 
     <script type="module">
         import { PgEx } from './scripts/core/PgEx.js';

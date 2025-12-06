@@ -4,17 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PgEx 01</title>
+    <title>PgEx 02</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/theory.css">
     <link rel="stylesheet" href="css/practice.css">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-
 </head>
 
 <body>
-
 
     <main>
         <nav>
@@ -26,27 +23,9 @@
         </nav>
 
         <section id="sect_theory">
-            <h1 data-i18n="lesson01.title"></h1>
-            <p data-i18n="lesson01.theory_p1"></p>
-
-            <div class="code-example">
-                <pre><code class="language-sql">SELECT column, another_column, …
-FROM mytable;</code></pre>
-                <div class="code-caption">
-                    <label data-i18n="lesson01.code_example1_caption"></label>
-                </div>
-            </div>
-
-            <p data-i18n="lesson01.theory_p2"></p>
-            <p data-i18n="lesson01.theory_p3"></p>
-
-            <div class="code-example">
-                <pre><code class="language-sql">SELECT *
-FROM mytable;</code></pre>
-                <div class="code-caption">
-                    <label data-i18n="lesson01.code_example2_caption"></label>
-                </div>
-            </div>
+            <h1 data-i18n="lesson02.title"></h1>
+            <p data-i18n="lesson02.theory_p1"></p>
+            <p data-i18n="lesson02.theory_p2"></p>
         </section>
 
         <hr>
@@ -74,16 +53,11 @@ FROM mytable;</code></pre>
 
             <section id="group_task">
                 <div class="container">
-                    <h3 class="section-title" data-i18n="lesson01.tasks_title"></h3>
+                    <h3 class="section-title" data-i18n="lesson02.tasks_title"></h3>
                     <ol></ol>
                 </div>
-                <a class="btn disabled" href="lesson02.html" id="finishBtn">Далее</a>
+                <a class="btn disabled" href="index.html" id="finishBtn" data-i18n="lesson02.btn_finish">Завершить</a>
             </section>
-        </section>
-
-        <hr>
-
-        <section id="sect_faq">
         </section>
     </main>
 
@@ -95,14 +69,11 @@ FROM mytable;</code></pre>
     }
     </script>
 
-    <script src="scripts/isRightAns.js" defer></script>
     <script src="scripts/fillTableHtml.js" defer></script>
-    <script src="scripts/status.js" defer></script>
-    <script src="scripts/nextTask.js" defer></script>
 
     <script type="module">
         import { PgEx } from './scripts/core/PgEx.js';
-        import lessonConfig from './scripts/lessons/lesson01.js';
+        import lessonConfig from './scripts/lessons/lesson02.js';
 
         // Initialize the engine
         new PgEx(lessonConfig);
