@@ -1,8 +1,15 @@
-import { PGlite } from '@electric-sql/pglite';
-
+let PGlite = null;
 let db = null;
 
+async function load() {
+	if (!PGlite) {
+		const mod = await import('@electric-sql/pglite');
+		PGlite = mod.PGlite;
+	}
+}
+
 export async function init(tables) {
+	await load();
 	if (db) { try { await db.close(); } catch {} }
 	db = new PGlite();
 	for (const t of tables) {
