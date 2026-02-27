@@ -1,122 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PgEx</title>
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PgEx</title>
+	<link rel="icon" href="assets/favicon.ico">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://cdn.jsdelivr.net">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/app.css">
+	<script type="importmap">
+	{
+		"imports": {
+			"@electric-sql/pglite": "https://cdn.jsdelivr.net/npm/@electric-sql/pglite@0.3.15/dist/index.js",
+			"petite-vue": "https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.es.js"
+		}
+	}
+	</script>
 </head>
-
 <body>
-    <!-- 
-    Этот вариант аккордеона основан на том, что мы используем свойство tabindex и CSS-селектор :focus для управления открытием и закрытием контента.
+	<main v-cloak>
+		<nav><a href="#/" class="logo">PgEx</a></nav>
 
-    Как это работает:
+		<!-- ====== HOME ====== -->
+		<div v-if="page === 'home'">
+			<h1>Уроки</h1>
+			<a v-for="l in allLessons" :href="'#/lesson/' + l.slug" class="lesson-card">
+				<h2>{{ l.title }}</h2>
+				<span class="meta">{{ l.tasks.length }} заданий</span>
+			</a>
+		</div>
 
-    Шаг 1: Заголовок с tabindex
-    <h1 tabindex="0">Урок №1.</h1>
-    Атрибут tabindex="0" делает заголовок доступным для фокуса, то есть на него можно кликнуть или выбрать с помощью клавиши Tab.
-    Когда элемент с tabindex получает фокус (на него кликнули или выбрали с клавиатуры), к нему применяется CSS-селектор :focus.
-    
-    Шаг 2: Открытие контента с помощью :focus
-    h1:focus+div {
-        max-height: 600px;
-        transition: max-height 1s;
-    }
-    Селектор h1:focus+div означает: "Применить стиль к div, который находится непосредственно после заголовка h1, когда этот заголовок находится в фокусе".
-    Изначально, div с текстом внутри скрыт из-за max-height: 0px и overflow: hidden.
-    Когда заголовок получает фокус (:focus), высота блока увеличивается до 600px, а сам блок плавно открывается благодаря transition.
-    
-    Шаг 3: Псевдоэлемент :before
-    h1:focus+div:before {
-        content: '';
-        display: block;
-        height: 2.5em;
-        margin-top: -2.6em;
-        width: 100%;
-        position: absolute;
-    }
-    Здесь используется псевдоэлемент :before, который создаёт невидимый блок перед содержимым при открытии.
-    Этот невидимый блок закрывает заголовок, когда он находится в фокусе, что "обманывает" браузер: при клике на заголовок аккордеон закрывается, потому что фокус теряется.
-    
-    Шаг 4: Анимация
-    transition: max-height 1s;
-    Свойство transition добавляет плавное раскрытие и закрытие содержимого при изменении значения свойства max-height.
-    -->
+		<!-- ====== LESSON ====== -->
+		<div v-if="page === 'lesson' && lesson">
+			<section class="theory">
+				<h1>{{ lesson.title }}</h1>
+				<div v-html="theory"></div>
+			</section>
 
-    <div style="display: flex; justify-content: space-between; padding: 10px;">
-        <a id="github" href="https://github.com/smir-ant/PgEx"><img src="assets/github.svg" alt=""></a>
-        <button id="langSwitcher" class="btn-sm"
-            style="background: none; border: 1px solid var(--text-color); color: var(--text-color); cursor: pointer; padding: 2px 5px; border-radius: 4px;">EN/RU</button>
-    </div>
+			<hr>
 
-    <main>
-        <!-- <article>
-                <h1 tabindex="0"><img class="icon" src="assets/icon_gear.svg"> Настройки</h1>
-                <div>
-                    <div class="setting_param">
-                        <div style="background-image: url(assets/icon_russia.svg);" class="icon_settings"></div>
-                        <p>Язык</p>
-                    </div>
-                    <div onclick="resetProgress()" class="setting_param">
-                        <div style="background-image: url(assets/icon_reset.svg);" class="icon_settings"></div>
-                        <p>Сброс прогресса</p>
-                    </div>
+			<!-- Schema -->
+			<div class="schema">
+				<figure v-for="t in lesson.schema" class="schema-block">
+					<figcaption>{{ t.name }}</figcaption>
+					<table class="schema-table"><tbody>
+						<tr v-for="f in t.fields">
+							<td class="field-name" :title="f.type">
+								{{ f.name }}
+								<span v-if="f.type.includes('PRIMARY KEY')" class="pk">PK</span>
+							</td>
+							<td>{{ f.desc }}</td>
+						</tr>
+					</tbody></table>
+				</figure>
+			</div>
 
-                </div>
-            </article> -->
-        <article>
-            <h1 tabindex="0"><img class="icon" src="assets/index/icon_glos.svg"> <span
-                    data-i18n="index.glossary"></span></h1>
-            <div>
-                <p data-i18n="index.glossary_desc"></p>
-            </div>
-        </article>
-        <article>
-            <h1 tabindex="0"><img class="icon" src="assets/index/icon_muscule.svg"> <span
-                    data-i18n="index.trainer"></span></h1>
-            <div>
-                <p data-i18n="index.trainer_desc"></p>
-                <a class="btn" href="trainer.html" data-i18n="index.btn_start"></a>
-            </div>
-        </article>
-        <article>
-            <h1 tabindex="0"><span data-i18n="index.lesson00"></span></h1>
-            <div class="lesson-card">
-                <h2 data-i18n="lesson01.title"></h2>
-                <a href="lesson01.html" class="btn" data-i18n="start"></a>
-            </div>
-            <div class="lesson-card">
-                <h2 data-i18n="lesson02.title"></h2>
-                <a href="lesson02.html" class="btn" data-i18n="start"></a>
-            </div>
-            <div class="lesson-card">
-                <h2 data-i18n="lesson03.title"></h2>
-                <a href="lesson03.html" class="btn" data-i18n="start"></a>
-            </div>
-            <!-- Gap for future lessons -->
-            <div class="lesson-card">
-                <h2 data-i18n="lesson07.title"></h2>
-                <a href="lesson07.html" class="btn" data-i18n="start"></a>
-            </div>
-        </article>
+			<!-- Practice -->
+			<section class="practice">
+				<div class="practice-left">
+					<!-- Data Table -->
+					<section class="tile">
+						<div class="table-wrap">
+							<table>
+								<thead><tr><th v-for="f in fields">{{ f.name }}</th></tr></thead>
+								<tbody>
+									<tr v-for="row in rows">
+										<td v-for="f in fields">{{ row[f.name] ?? '' }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="status">{{ status }}</div>
+					</section>
 
-    </main>
+					<!-- Editor (mounted by JS — needs direct DOM control) -->
+					<section class="tile editor-tile" id="editorMount"></section>
+				</div>
 
-    <script type="module">
-        import { Localization } from './scripts/core/Localization.js';
-        const i18n = new Localization();
-        i18n.updatePage();
+				<!-- Tasks -->
+				<div class="task-list">
+					<h3>Задания</h3>
+					<ol>
+						<li v-for="(task, i) in lesson.tasks"
+							:class="{ completed: i < taskIndex, active: i === taskIndex, disabled: i > taskIndex }">
+							<span v-html="taskDesc(i)"></span>
+							<button v-if="i === taskIndex" class="btn-solution"
+								@click="showSolution(i)">Показать решение</button>
+						</li>
+					</ol>
+				</div>
+			</section>
 
-        const switcher = document.getElementById('langSwitcher');
-        if (switcher) {
-            switcher.addEventListener('click', () => i18n.toggleLanguage());
-        }
-    </script>
+			<hr v-if="lesson.next">
+			<a v-if="lesson.next" :href="'#/lesson/' + lesson.next"
+				class="btn" :class="{ disabled: taskIndex < lesson.tasks.length }">Далее</a>
+		</div>
+
+		<!-- 404 -->
+		<div v-if="page === 'notfound'">
+			<h1>Урок не найден</h1>
+			<a href="#/">На главную</a>
+		</div>
+	</main>
+
+	<script type="module" src="js/app.js"></script>
 </body>
-
 </html>

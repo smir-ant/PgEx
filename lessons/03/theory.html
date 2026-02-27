@@ -1,0 +1,19 @@
+<p>Оператор <code>!=</code> (или <code>&lt;&gt;</code>) проверяет на неравенство.</p>
+<div class="code-example">
+	<pre><code>SELECT * FROM employees WHERE department_id != 1;</code></pre>
+	<div class="code-caption"><label>Выбрать всех, кроме отдела 1</label></div>
+</div>
+
+<p>Оператор <code>LIKE</code> используется для поиска по шаблону. <code>%</code> — любая строка, <code>_</code> — один символ.</p>
+<div class="code-example">
+	<pre><code>SELECT * FROM employees WHERE name LIKE 'J%';
+SELECT * FROM employees WHERE email LIKE '%example.com';</code></pre>
+	<div class="code-caption"><label>Поиск по шаблону с LIKE</label></div>
+</div>
+
+<p><code>NOT IN</code> и <code>NOT BETWEEN</code> исключают значения из списка или диапазона.</p>
+<div class="code-example">
+	<pre><code>SELECT * FROM employees WHERE department_id NOT IN (1, 2);
+SELECT * FROM employees WHERE salary NOT BETWEEN 50000 AND 100000;</code></pre>
+	<div class="code-caption"><label>Исключение значений</label></div>
+</div>

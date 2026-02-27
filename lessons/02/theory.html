@@ -1,0 +1,34 @@
+<p>Оператор <code>WHERE</code> позволяет фильтровать строки по условию. Он указывается после <code>FROM</code> и перед <code>ORDER BY</code>.</p>
+
+<div class="code-example">
+	<pre><code>SELECT column, another_column, …
+FROM mytable
+WHERE condition
+    AND/OR another_condition;</code></pre>
+	<div class="code-caption"><label>Общий синтаксис SELECT с WHERE</label></div>
+</div>
+
+<h3>Операторы сравнения</h3>
+<table class="theory-table">
+	<thead><tr><th>Оператор</th><th>Описание</th><th>Пример</th></tr></thead>
+	<tbody>
+		<tr><td><code>=</code></td><td>Равно</td><td><code>salary = 50000</code></td></tr>
+		<tr><td><code>!=</code> / <code>&lt;&gt;</code></td><td>Не равно</td><td><code>department != 'HR'</code></td></tr>
+		<tr><td><code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></td><td>Сравнение</td><td><code>salary &gt; 50000</code></td></tr>
+		<tr><td><code>AND</code></td><td>Оба условия истинны</td><td><code>salary &gt; 50000 AND department = 'IT'</code></td></tr>
+		<tr><td><code>OR</code></td><td>Хотя бы одно истинно</td><td><code>department = 'IT' OR department = 'HR'</code></td></tr>
+		<tr><td><code>IN (…)</code></td><td>Значение в списке</td><td><code>id IN (1, 2, 3)</code></td></tr>
+		<tr><td><code>NOT IN (…)</code></td><td>Значение НЕ в списке</td><td><code>id NOT IN (1, 2, 3)</code></td></tr>
+		<tr><td><code>BETWEEN … AND …</code></td><td>Значение в диапазоне</td><td><code>salary BETWEEN 40000 AND 60000</code></td></tr>
+		<tr><td><code>NOT BETWEEN</code></td><td>Значение НЕ в диапазоне</td><td><code>salary NOT BETWEEN 40000 AND 60000</code></td></tr>
+	</tbody>
+</table>
+
+<p>Примеры:</p>
+<div class="code-example">
+	<pre><code>SELECT * FROM employees WHERE salary > 50000;
+SELECT * FROM employees WHERE department = 'IT' AND salary > 60000;
+SELECT * FROM employees WHERE department = 'IT' OR department = 'HR';
+SELECT * FROM employees WHERE id IN (1, 2, 3);
+SELECT * FROM employees WHERE salary BETWEEN 40000 AND 60000;</code></pre>
+</div>
